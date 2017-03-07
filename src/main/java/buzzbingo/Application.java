@@ -46,7 +46,12 @@ public class Application {
     @Bean
     JedisConnectionFactory jedisConnectionFactory() {
         JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
-        jedisConnectionFactory.setHostName("localhost");
+        String DOCKER = System.getenv("DOCKER");
+        if (DOCKER == null || DOCKER.isEmpty()) {
+            jedisConnectionFactory.setHostName("localhost");
+        } else {
+            jedisConnectionFactory.setHostName("redis");
+        }
         jedisConnectionFactory.setPort(6379);
         return jedisConnectionFactory;
     }
