@@ -18,12 +18,11 @@ import java.util.Set;
 public class WordbankController extends ApiBaseController {
 
   @Autowired
-  WordbankRepository wordbankRepository;
+  protected WordbankRepository wordbankRepository;
 
   @RequestMapping(value = "/", method = RequestMethod.GET)
   public Map<Object, Object> getWordbanks() {
-    Map<Object, Object> allWordbanks = wordbankRepository.findAllWordbanks();
-    return allWordbanks;
+    return wordbankRepository.findAllWordbanks();
   }
 
   @RequestMapping(value = "/{name}", method = RequestMethod.GET)
@@ -35,14 +34,14 @@ public class WordbankController extends ApiBaseController {
 
   @RequestMapping(value = "/{name}", method = RequestMethod.POST)
   public Wordbank createWordbank(@PathVariable String name, @RequestBody Set<String> words) throws DuplicateWordbankException {
-    if (exists(name)) throw new DuplicateWordbankException();
+    if (wordbankExists(name)) throw new DuplicateWordbankException();
 
     Wordbank listone = new Wordbank(name, words);
     wordbankRepository.saveWordbank(listone);
     return listone;
   }
 
-  @RequestMapping(value = "/{name}/add", method = RequestMethod.PUT)
+  @RequestMapping(value = "/{name}/addWord", method = RequestMethod.PUT)
   public Wordbank addToWordbank(@PathVariable String name, @RequestBody Set<String> wordsToAdd) throws WordbankNotFoundException {
     // adds words to list
     Wordbank wordbank = wordbankRepository.findWordbank(name);
@@ -55,7 +54,7 @@ public class WordbankController extends ApiBaseController {
     return wordbank;
   }
 
-  @RequestMapping(value = "/{name}/remove", method = RequestMethod.DELETE)
+  @RequestMapping(value = "/{name}/removeWord", method = RequestMethod.DELETE)
   public Wordbank removeFromWordbank(@PathVariable String name, @RequestBody Set<String> wordsToDelete) throws WordbankNotFoundException {
     // remove words from list
     Wordbank wordbank = wordbankRepository.findWordbank(name);
@@ -80,15 +79,13 @@ public class WordbankController extends ApiBaseController {
 
   @RequestMapping(value = "/{name}/", method = RequestMethod.DELETE)
   public void deleteWordbank(@PathVariable String name) throws WordbankNotFoundException {
-    if (!exists(name)) throw new WordbankNotFoundException();
+    if (!wordbankExists(name)) throw new WordbankNotFoundException();
     wordbankRepository.deleteWordbank(name);
   }
 
-
-
-
-  private Boolean exists(String name) {
+  protected Boolean wordbankExists(String name) {
     Wordbank wordbank = wordbankRepository.findWordbank(name);
     return wordbank != null;
   }
+
 }

@@ -1,6 +1,5 @@
 package buzzbingo;
 
-import buzzbingo.wordbank.WordbankController;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -20,7 +19,7 @@ import java.util.Arrays;
 @SpringBootApplication
 @EnableSwagger2
 @ComponentScan(basePackageClasses = {
-    WordbankController.class
+    ApiBaseController.class
 })
 public class Application {
 
@@ -69,7 +68,7 @@ public class Application {
         return new Docket(DocumentationType.SWAGGER_2)
             .select()
             .apis(RequestHandlerSelectors.any())
-//            .paths(PathSelectors.any()) //only match versioned (v and one or more numbers) apis
+//            .paths(PathSelectors.any())
             .paths(PathSelectors.regex("^/v\\d+/.*")) //only match versioned (v and one or more numbers) apis
             .build()
             .pathMapping("/")
