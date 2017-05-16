@@ -1,4 +1,6 @@
-package buzzbingo.game;
+package buzzbingo.repositories;
+
+import buzzbingo.model.Game;
 
 import java.util.Map;
 

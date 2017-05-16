@@ -1,5 +1,6 @@
-package buzzbingo.game;
+package buzzbingo.repositories;
 
+import buzzbingo.model.Game;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;

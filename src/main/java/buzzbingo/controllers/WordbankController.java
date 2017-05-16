@@ -1,8 +1,12 @@
-package buzzbingo.wordbank;
+package buzzbingo.controllers;
 
-import buzzbingo.ApiBaseController;
 import buzzbingo.exceptions.DuplicateWordbankException;
 import buzzbingo.exceptions.WordbankNotFoundException;
+import buzzbingo.model.Wordbank;
+import buzzbingo.pubsub.RedisMessagePublisher;
+import buzzbingo.repositories.WordbankRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,14 +16,40 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(ApiBaseController.API_VERSION + "/wordbank")
 public class WordbankController extends ApiBaseController {
+  private static final Logger LOGGER = LoggerFactory.getLogger(WordbankController.class);
 
   @Autowired
   protected WordbankRepository wordbankRepository;
 
+
+// -----------------------
+
+  @Autowired
+  RedisMessagePublisher redisMessagePublisher;
+
+  @RequestMapping(value = "/test", method = RequestMethod.GET)
+  public void testpubsub() {
+    LOGGER.info(">> sending message");
+    String message = "Message " + UUID.randomUUID();
+    LOGGER.info(">> message: " + message);
+    redisMessagePublisher.publish(message);
+    LOGGER.info(">> message sent");
+//
+//    boolean contains = RedisMessageSubscriber.messageList.get(0).contains(message);
+//    LOGGER.info(">> contains?");
+//    LOGGER.info(String.valueOf(contains));
+
+  }
+
+// -----------------------
+
+
+  //TODO: Should this just return the names?
   @RequestMapping(value = "/", method = RequestMethod.GET)
   public Map<Object, Object> getWordbanks() {
     return wordbankRepository.findAllWordbanks();

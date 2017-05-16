@@ -17,10 +17,17 @@ To build docker compose:
 To run docker compose with api and redis: 
 `docker-compose up`
 
+To tear down:
+`docker compose down`
+
 To run:  
 `java -jar build/libs/buzzbingo-0.0.1-SNAPSHOT.jar`  
 OR  
 `./gradlew bootRun`
+
+To run ui:   
+`cd ui/`   
+`npm start`
 
 
 ## Info

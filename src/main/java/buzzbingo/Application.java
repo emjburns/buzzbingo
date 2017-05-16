@@ -1,5 +1,8 @@
 package buzzbingo;
 
+import buzzbingo.pubsub.MessagePublisher;
+import buzzbingo.pubsub.RedisMessagePublisher;
+import buzzbingo.pubsub.RedisMessageSubscriber;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,18 +11,19 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.listener.ChannelTopic;
+import org.springframework.data.redis.listener.RedisMessageListenerContainer;
+import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import java.util.Arrays;
-
 @SpringBootApplication
 @EnableSwagger2
 @ComponentScan(basePackageClasses = {
-    ApiBaseController.class
+    Application.class
 })
 public class Application {
 
@@ -30,18 +34,17 @@ public class Application {
     @Bean
     public CommandLineRunner commandLineRunner(ApplicationContext ctx) {
         return args -> {
-
-            System.out.println("Let's inspect the beans provided by Spring Boot:");
-
-            String[] beanNames = ctx.getBeanDefinitionNames();
-            Arrays.sort(beanNames);
-            for (String beanName : beanNames) {
-                System.out.println(beanName);
-            }
-
+//            System.out.println("Let's inspect the beans provided by Spring Boot:");
+//
+//            String[] beanNames = ctx.getBeanDefinitionNames();
+//            Arrays.sort(beanNames);
+//            for (String beanName : beanNames) {
+//                System.out.println(beanName);
+//            }
         };
     }
 
+    // Enable writing to redis database, locally or between docker containers
     @Bean
     JedisConnectionFactory jedisConnectionFactory() {
         JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
@@ -62,6 +65,35 @@ public class Application {
         return template;
     }
 
+    // Enable redis as a message broker
+    @Bean
+    MessageListenerAdapter messageListener() {
+        return new MessageListenerAdapter(new RedisMessageSubscriber());
+    }
+
+    @Bean
+    RedisMessageListenerContainer redisContainer() {
+        RedisMessageListenerContainer container
+            = new RedisMessageListenerContainer();
+        container.setConnectionFactory(jedisConnectionFactory());
+        container.addMessageListener(messageListener(), topic());
+        return container;
+    }
+
+    @Bean
+    MessagePublisher redisPublisher() {
+        return new RedisMessagePublisher(redisTemplate(), topic());
+    }
+
+    @Bean
+    ChannelTopic topic() {
+        return new ChannelTopic("pubsub");
+    }
+
+
+
+
+    // Enable swagger
 //    https://springfox.github.io/springfox/docs/current/
     @Bean
     public Docket wordlistApi() {

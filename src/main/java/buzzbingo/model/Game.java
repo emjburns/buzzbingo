@@ -1,10 +1,13 @@
-package buzzbingo.game;
+package buzzbingo.model;
+
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+@Component
 public class Game implements Serializable {
   String name;
   String wordbank;
@@ -78,6 +81,7 @@ public class Game implements Serializable {
 
   public Game setWinner(Boolean winner) {
     this.winner = winner;
+    this.inPlay = false;
     return this;
   }
 
@@ -88,5 +92,17 @@ public class Game implements Serializable {
   public Game setDimention(Integer dimention) {
     this.dimention = dimention;
     return this;
+  }
+
+  @Override
+  public String toString() {
+    return "Game{" +
+        "name='" + name + '\'' +
+        ", wordbank='" + wordbank + '\'' +
+        ", players=" + players +
+        ", inPlay=" + inPlay +
+        ", winner=" + winner +
+        ", dimention=" + dimention +
+        '}';
   }
 }

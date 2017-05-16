@@ -1,4 +1,6 @@
-package buzzbingo.wordbank;
+package buzzbingo.repositories;
+
+import buzzbingo.model.Wordbank;
 
 import java.util.Map;
 

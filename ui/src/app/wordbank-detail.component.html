@@ -1,0 +1,17 @@
+<div *ngIf="wordbank">
+  <h2>List: {{wordbank.name}}</h2>
+  <!-- TODO: edit wordbank and name inline using data binding from angular -->
+  <!-- <div>
+    {{wordbank.words}}
+  </div> -->
+  <ul class="heroes">
+    <li *ngFor="let word of wordbank.words">
+      <span>{{word}}</span>
+      <!-- <input [(ngModel)]="wordbank.words" placeholder="word" /> -->
+      <!-- <button class="delete"
+        (click)="delete(word); $event.stopPropagation()">x</button> -->
+    </li>
+  </ul>
+  <button (click)="goBack()">Back</button>
+  <button (click)="save()">Save</button>
+</div>

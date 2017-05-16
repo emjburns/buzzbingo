@@ -1,5 +1,6 @@
-package buzzbingo.wordbank;
+package buzzbingo.repositories;
 
+import buzzbingo.model.Wordbank;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
