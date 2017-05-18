@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'dashboard',  component: DashboardComponent },
   { path: 'detail/:id', component: HeroDetailComponent },
   { path: 'heroes',     component: HeroesComponent },
-  { path: 'wordbanks/:id', component: WordbankDetailComponent },
+  { path: 'wordbanks/:name', component: WordbankDetailComponent },
   { path: 'wordbanks',  component: WordbanksComponent }
 ];
 

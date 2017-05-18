@@ -1,9 +1,11 @@
 <h3>Wordbanks</h3>
 <div class="grid grid-pad">
-  <a *ngFor="let wordbank of wordbanks"  [routerLink]="['/wordbanks', wordbank.id]"  class="col-1-4">
+  <a *ngFor="let wordbank of wordbanks"  [routerLink]="['/wordbanks', wordbank.name]"  class="col-1-4">
     <div class="module wordbank">
       <h4>{{wordbank.name}}</h4>
     </div>
   </a>
 </div>
+
+<p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
 <!-- <hero-search></hero-search> -->

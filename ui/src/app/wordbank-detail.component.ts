@@ -5,6 +5,7 @@ import { Location }               from '@angular/common';
 
 import { Wordbank }        from './wordbank';
 import { WordbankService } from './wordbank.service';
+import { ApiWordbankService} from './api-wordbank.service';
 
 @Component({
   selector: 'my-wordbank-detail',
@@ -13,18 +14,19 @@ import { WordbankService } from './wordbank.service';
 })
 export class WordbankDetailComponent implements OnInit {
   wordbank: Wordbank;
+  mode = 'Observable';
 
   constructor(
     private wordbankService: WordbankService,
+    private apiWordbankService: ApiWordbankService,
     private route: ActivatedRoute,
     private location: Location
   ) {}
 
   ngOnInit(): void {
     this.route.params
-      .switchMap((params: Params) => this.wordbankService.getWordbank(+params['id']))
+      .switchMap((params: Params) => this.apiWordbankService.getWordbank(params['name']))
       .subscribe(wordbank => this.wordbank = wordbank);
-      console.log(this.wordbank)
   }
 
   // save(): void {

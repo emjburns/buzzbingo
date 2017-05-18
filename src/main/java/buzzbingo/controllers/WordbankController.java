@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
@@ -51,8 +52,9 @@ public class WordbankController extends ApiBaseController {
 
   //TODO: Should this just return the names?
   @RequestMapping(value = "/", method = RequestMethod.GET)
-  public Map<Object, Object> getWordbanks() {
-    return wordbankRepository.findAllWordbanks();
+  public Collection<Object> getWordbanks() {
+    Map<Object, Object> allWordbanks = wordbankRepository.findAllWordbanks();
+    return allWordbanks.values();
   }
 
   @RequestMapping(value = "/{name}", method = RequestMethod.GET)

@@ -1,21 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Wordbank } from './wordbank';
-import { WordbankService } from './wordbank.service';
+// import { WordbankService } from './wordbank.service';
+import { ApiWordbankService } from './api-wordbank.service'
 
 @Component({
   selector: 'wordbank-dashboard',
   templateUrl: './wordbanks.component.html',
   styleUrls: [ './wordbanks.component.css' ],
-  providers: [WordbankService]
+  providers: [ApiWordbankService]
 })
 export class WordbanksComponent implements OnInit {
+  errorMessage: string;
   wordbanks: Wordbank[] = [];
+  mode = 'Observable';
 
-  constructor(private wordbankService: WordbankService) { }
+  constructor(
+    private apiWordbankService: ApiWordbankService
+  ) { }
 
   ngOnInit(): void {
-    this.wordbankService.getWordbanks()
-      .then(wordbanks => this.wordbanks = wordbanks);
+    this.getWordbanks();
+    // this.wordbankService.getWordbanks()
+    //   .then(wordbanks => this.wordbanks = wordbanks);
+  }
+
+  getWordbanks() {
+    this.apiWordbankService.getWordbanks()
+        .subscribe(
+          wordbanks => this.wordbanks = wordbanks,
+          error => this.errorMessage = <any>error
+        );
   }
 }

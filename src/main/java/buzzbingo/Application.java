@@ -14,11 +14,14 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.listener.ChannelTopic;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.listener.adapter.MessageListenerAdapter;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
+import java.text.SimpleDateFormat;
 
 @SpringBootApplication
 @EnableSwagger2
@@ -63,6 +66,17 @@ public class Application {
         RedisTemplate<String, Object> template = new RedisTemplate<String, Object>();
         template.setConnectionFactory(jedisConnectionFactory());
         return template;
+    }
+
+
+    @Bean
+    public Jackson2ObjectMapperBuilder jacksonBuilder() {
+        System.out.println("Jackson config");
+        Jackson2ObjectMapperBuilder b = new Jackson2ObjectMapperBuilder();
+        b.indentOutput(true)
+            .dateFormat(new SimpleDateFormat("yyyy-MM-dd"))
+            .featuresToDisable();
+        return b;
     }
 
     // Enable redis as a message broker
