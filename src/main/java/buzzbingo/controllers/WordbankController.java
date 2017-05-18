@@ -65,10 +65,11 @@ public class WordbankController extends ApiBaseController {
   }
 
   @RequestMapping(value = "/{name}", method = RequestMethod.POST)
-  public Wordbank createWordbank(@PathVariable String name, @RequestBody Set<String> words) throws DuplicateWordbankException {
+  public Wordbank createWordbank(@PathVariable String name, @RequestBody Map<String, Set<String>> words) throws DuplicateWordbankException {
     if (wordbankExists(name)) throw new DuplicateWordbankException();
 
-    Wordbank listone = new Wordbank(name, words);
+    //TODO this is brittle. Fix by parsing the json better
+    Wordbank listone = new Wordbank(name, words.get("words"));
     wordbankRepository.saveWordbank(listone);
     return listone;
   }

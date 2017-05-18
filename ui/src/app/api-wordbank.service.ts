@@ -1,5 +1,5 @@
 import { Injectable }       from '@angular/core';
-import { Http, Response }   from '@angular/http';
+import { Http, Response, Headers, RequestOptions }   from '@angular/http';
 import { Observable }       from 'rxjs/Observable';
 import { Wordbank }         from './wordbank';
 
@@ -23,6 +23,15 @@ export class ApiWordbankService {
     return this.http.get(this.wordbanksUrl + "/" + name)
       .map(this.extractData)
       .catch(this.handleError);
+  }
+
+  create(name: String, words: String[]): Observable<Wordbank> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(this.wordbanksUrl + name, { words }, options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+
   }
 
 

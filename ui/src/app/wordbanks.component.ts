@@ -32,4 +32,14 @@ export class WordbanksComponent implements OnInit {
           error => this.errorMessage = <any>error
         );
   }
+
+  addWordbank(name: string, words: string) {
+    let wordArray = words.split(",")
+    if (!name) { return; }
+    this.apiWordbankService.create(name, wordArray)
+                     .subscribe(
+                       wordbank  => this.wordbanks.push(wordbank),
+                       error =>  this.errorMessage = <any>error);
+  }
+
 }
