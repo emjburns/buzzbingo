@@ -1,6 +1,6 @@
 version: '2'
 services:
-  buzzbingo:
+  api:
     build: .
     ports:
     - "8080:8080"
@@ -12,3 +12,9 @@ services:
       image: redis
       ports:
       - "6379"
+  ui:
+    build: ./ui
+    ports:
+    - "3000:3000"
+    links:
+    - api
