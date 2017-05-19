@@ -34,12 +34,13 @@ export class WordbankDetailComponent implements OnInit {
       .subscribe(wordbank => this.wordbank = wordbank);
   }
 
-  // save(): void {
-  //   this.heroService.update(this.hero)
-  //     .then(() => this.goBack());
-  // }
+  addWord(name: string, word: string) {
+    let words: string[] = word.split(",")
+    this.apiWordbankService.addWord(name, words)
+      .subscribe(wordbank => this.wordbank = wordbank);
+  }
 
-  deleteWordbank(name: string) {
+   deleteWordbank(name: string) {
     this.apiWordbankService.delete(name)
         .subscribe(
           // must delete wordbank
@@ -51,9 +52,6 @@ export class WordbankDetailComponent implements OnInit {
         //appear in the list of all wordbanks
         //return you to previous place
         this.goBack();
-
-
-
   }
 
   goBack(): void {
