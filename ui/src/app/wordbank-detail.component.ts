@@ -1,10 +1,9 @@
 import 'rxjs/add/operator/switchMap';
 import { Component, OnInit }      from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Location }               from '@angular/common';
 
 import { Wordbank }        from './wordbank';
-import { WordbankService } from './wordbank.service';
 import { ApiWordbankService} from './api-wordbank.service';
 
 @Component({
@@ -17,10 +16,10 @@ export class WordbankDetailComponent implements OnInit {
   mode = 'Observable';
 
   constructor(
-    private wordbankService: WordbankService,
     private apiWordbankService: ApiWordbankService,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -33,6 +32,23 @@ export class WordbankDetailComponent implements OnInit {
   //   this.heroService.update(this.hero)
   //     .then(() => this.goBack());
   // }
+
+  deleteWordbank(name: string) {
+    this.apiWordbankService.delete(name)
+        .subscribe(
+          // must delete wordbank
+        );
+        // this.router.navigate(["wordbanks"]);
+
+        //TODO: have this trigger an update of the
+        //word list, so the deleted list doesn't
+        //appear in the list of all wordbanks
+        //return you to previous place
+        this.goBack();
+
+
+
+  }
 
   goBack(): void {
     this.location.back();

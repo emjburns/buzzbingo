@@ -5,9 +5,6 @@ import { HttpModule, JsonpModule }    from '@angular/http';
 
 import { AppComponent }         from './app.component';
 import { DashboardComponent }   from './dashboard.component';
-import { HeroDetailComponent }  from './hero-detail.component';
-import { HeroesComponent }      from './heroes.component';
-import { HeroService }          from './hero.service';
 import { GameSearchComponent}   from './game-search.component'
 
 import { WordbankService }              from './wordbank.service';
@@ -37,14 +34,11 @@ import { ApiWordbankService } from './api-wordbank.service'
   declarations: [
     AppComponent,
     DashboardComponent,
-    HeroDetailComponent,
-    HeroesComponent,
     GameSearchComponent,
     WordbankDetailComponent,
     WordbanksComponent
   ],
   providers: [
-    HeroService,
     WordbankService,
     ApiWordbankService
   ],

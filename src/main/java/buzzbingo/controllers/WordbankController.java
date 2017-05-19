@@ -8,6 +8,9 @@ import buzzbingo.repositories.WordbankRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +23,7 @@ import java.util.Set;
 import java.util.UUID;
 
 @RestController
+@CrossOrigin
 @RequestMapping(ApiBaseController.API_VERSION + "/wordbank")
 public class WordbankController extends ApiBaseController {
   private static final Logger LOGGER = LoggerFactory.getLogger(WordbankController.class);
@@ -100,7 +104,7 @@ public class WordbankController extends ApiBaseController {
     return wordbank;
   }
 
-  @RequestMapping(value = "/{name}/", method = RequestMethod.PUT)
+  @RequestMapping(value = "/{name}", method = RequestMethod.PUT)
   public Wordbank updateWordbank(@PathVariable String name, @RequestBody Set<String> words) throws WordbankNotFoundException {
     // change old list to new list
     Wordbank wordbank = wordbankRepository.findWordbank(name);
@@ -110,10 +114,12 @@ public class WordbankController extends ApiBaseController {
     return wordbank;
   }
 
-  @RequestMapping(value = "/{name}/", method = RequestMethod.DELETE)
-  public void deleteWordbank(@PathVariable String name) throws WordbankNotFoundException {
+  @RequestMapping(value = "/{name}", method = RequestMethod.DELETE)
+  public ResponseEntity deleteWordbank(@PathVariable String name) throws WordbankNotFoundException {
     if (!wordbankExists(name)) throw new WordbankNotFoundException();
     wordbankRepository.deleteWordbank(name);
+    return ResponseEntity.status(HttpStatus.NO_CONTENT).body(null);
+
   }
 
   protected Boolean wordbankExists(String name) {

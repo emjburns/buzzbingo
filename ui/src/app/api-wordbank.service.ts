@@ -34,6 +34,12 @@ export class ApiWordbankService {
 
   }
 
+  delete(name: String)  {
+    return this.http.delete(this.wordbanksUrl + name)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+
 
   private extractData(res: Response) {
     let body = res.json();

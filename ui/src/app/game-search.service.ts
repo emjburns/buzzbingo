@@ -4,15 +4,15 @@ import { Http }       from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable }     from 'rxjs/Observable';
 
-import { Hero }           from './hero';
+import { Game } from './game'
 
 @Injectable()
 export class GameSearchService {
   constructor(private http: Http) {}
 
-  search(term: string): Observable<Hero[]> {
+  search(term: string): Observable<Game[]> {
     return this.http
                .get(`app/heroes/?name=${term}`)
-               .map(response => response.json().data as Hero[]);
+               .map(response => response.json().data as Game[]);
   }
 }

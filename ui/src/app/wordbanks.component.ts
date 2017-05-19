@@ -37,9 +37,10 @@ export class WordbanksComponent implements OnInit {
     let wordArray = words.split(",")
     if (!name) { return; }
     this.apiWordbankService.create(name, wordArray)
-                     .subscribe(
-                       wordbank  => this.wordbanks.push(wordbank),
-                       error =>  this.errorMessage = <any>error);
+       .subscribe(
+         wordbank  => this.wordbanks.push(wordbank),
+         error =>  this.errorMessage = <any>error
+       );
   }
 
 }

@@ -12,6 +12,9 @@
         (click)="delete(word); $event.stopPropagation()">x</button> -->
     </li>
   </ul>
+
+  <button class="delete"
+    (click)="deleteWordbank(wordbank.name)">Delete Wordbank</button>
   <button (click)="goBack()">Back</button>
   <button (click)="save()">Save</button>
 </div>
