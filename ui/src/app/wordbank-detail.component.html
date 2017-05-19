@@ -7,9 +7,9 @@
   <ul class="heroes">
     <li *ngFor="let word of wordbank.words">
       <span>{{word}}</span>
-      <!-- <input [(ngModel)]="wordbank.words" placeholder="word" /> -->
-      <!-- <button class="delete"
-        (click)="delete(word); $event.stopPropagation()">x</button> -->
+      <!-- <input [(ngModel)]="wordbank.words.word" placeholder="word" /> -->
+      <button class="delete"
+        (click)="deleteWord(wordbank.name, word); $event.stopPropagation()">x</button>
     </li>
   </ul>
 

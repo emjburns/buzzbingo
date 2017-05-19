@@ -78,7 +78,7 @@ public class WordbankController extends ApiBaseController {
     return listone;
   }
 
-  @RequestMapping(value = "/{name}/addWord", method = RequestMethod.PUT)
+  @RequestMapping(value = "/{name}/addWords", method = RequestMethod.PUT)
   public Wordbank addToWordbank(@PathVariable String name, @RequestBody Set<String> wordsToAdd) throws WordbankNotFoundException {
     // adds words to list
     Wordbank wordbank = wordbankRepository.findWordbank(name);
@@ -91,7 +91,7 @@ public class WordbankController extends ApiBaseController {
     return wordbank;
   }
 
-  @RequestMapping(value = "/{name}/removeWord", method = RequestMethod.DELETE)
+  @RequestMapping(value = "/{name}/removeWords", method = RequestMethod.PUT)
   public Wordbank removeFromWordbank(@PathVariable String name, @RequestBody Set<String> wordsToDelete) throws WordbankNotFoundException {
     // remove words from list
     Wordbank wordbank = wordbankRepository.findWordbank(name);

@@ -28,6 +28,12 @@ export class WordbankDetailComponent implements OnInit {
       .subscribe(wordbank => this.wordbank = wordbank);
   }
 
+  deleteWord(name: string, word: string) {
+    let words: string[] = [word]
+    this.apiWordbankService.deleteWord(name, words)
+      .subscribe(wordbank => this.wordbank = wordbank);
+  }
+
   // save(): void {
   //   this.heroService.update(this.hero)
   //     .then(() => this.goBack());
