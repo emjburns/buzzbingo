@@ -1,5 +1,5 @@
 <div id="search-component">
-  <h4>Join an existing game or create a new game</h4>
+  <div>Join an existing game or create a new game</div>
   <input #searchBox id="search-box" (keyup)="search(searchBox.value)" />
   <div>
     <div *ngFor="let hero of heroes | async"

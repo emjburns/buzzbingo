@@ -5,7 +5,8 @@ import { HttpModule, JsonpModule }    from '@angular/http';
 
 import { AppComponent }         from './app.component';
 import { DashboardComponent }   from './dashboard.component';
-import { GameSearchComponent}   from './game-search.component'
+import { GameSearchComponent }   from './game-search.component'
+import { JoinGameComponent }    from './join-game.component'
 
 import { WordbankService }              from './wordbank.service';
 import { WordbankDetailComponent }      from './wordbank-detail.component';
@@ -19,7 +20,6 @@ import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 // import { InMemoryWordbankService } from './in-memory-wordbank.service'
 import { ApiWordbankService } from './api-wordbank.service'
 
-
 @NgModule({
   imports: [
     BrowserModule,
@@ -29,14 +29,15 @@ import { ApiWordbankService } from './api-wordbank.service'
     // InMemoryWebApiModule.forRoot(InMemoryDataService),
     // InMemoryWebApiModule.forRoot(InMemoryWordbankService),
     // InMemoryWebApiModule.forRoot(ApiWordbankService),
-    AppRoutingModule
+    AppRoutingModule,
   ],
   declarations: [
     AppComponent,
     DashboardComponent,
     GameSearchComponent,
     WordbankDetailComponent,
-    WordbanksComponent
+    WordbanksComponent,
+    JoinGameComponent
   ],
   providers: [
     WordbankService,

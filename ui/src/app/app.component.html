@@ -1,6 +1,16 @@
-<h1>{{title}}</h1>
-<nav>
-  <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-  <a routerLink="/wordbanks" routerLinkActive="active">Wordbanks</a>
+<!-- <h1>{{title}}</h1> -->
+<nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse fixed-top">
+  <a class="navbar-brand" routerLink="/" routerLinkActive="active">Buzzword Bingo</a> <img src=favicon.ico>
+  <ul class="navbar-nav mr-auto">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link"routerLink="/wordbanks" routerLinkActive="active">Wordbanks</a>
+    </li>
+  </ul>
 </nav>
-<router-outlet></router-outlet>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div><!-- /.container -->

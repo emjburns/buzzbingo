@@ -29,16 +29,16 @@ h4 {
 .module {
   padding: 20px;
   text-align: center;
-  color: #eee;
+  color: black;
   max-height: 120px;
   min-width: 120px;
-  background-color: #607D8B;
+  background-color: #ffcc00;
   border-radius: 2px;
 }
 .module:hover {
-  background-color: #EEE;
+  background-color: #ffeb99;
   cursor: pointer;
-  color: #607d8b;
+  color: #262626;
 }
 .grid-pad {
   padding: 10px 0;
@@ -58,4 +58,21 @@ h4 {
   .module {
     min-width: 60px;
   }
+}
+button {
+  margin-top: 20px;
+  font-family: Arial;
+  background-color: #eee;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer; cursor: hand;
+}
+button:hover {
+  background-color: #cfd8dc;
+}
+button:disabled {
+  background-color: #eee;
+  color: #ccc;
+  cursor: auto;
 }

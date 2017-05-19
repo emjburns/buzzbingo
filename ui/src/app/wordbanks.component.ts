@@ -4,6 +4,7 @@ import { Wordbank } from './wordbank';
 // import { WordbankService } from './wordbank.service';
 import { ApiWordbankService } from './api-wordbank.service'
 
+
 @Component({
   selector: 'wordbank-dashboard',
   templateUrl: './wordbanks.component.html',

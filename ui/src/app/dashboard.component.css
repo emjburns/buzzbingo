@@ -36,6 +36,9 @@ h4 {
   background-color: #607D8B;
   border-radius: 2px;
 }
+.instructions {
+  padding-bottom: 40px;
+}
 .module:hover {
   background-color: #EEE;
   cursor: pointer;
