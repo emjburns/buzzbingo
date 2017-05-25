@@ -8,7 +8,7 @@
     <li *ngFor="let word of wordbank.words">
       <span>{{word}}</span>
       <!-- <input [(ngModel)]="wordbank.words.word" placeholder="word" /> -->
-      <button class="delete"
+      <button class=""
         (click)="deleteWord(wordbank.name, word); $event.stopPropagation()">x</button>
     </li>
   </ul>

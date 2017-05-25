@@ -61,6 +61,12 @@ public class WordbankController extends ApiBaseController {
     return allWordbanks.values();
   }
 
+  @RequestMapping(value = "/names", method = RequestMethod.GET)
+  public Collection<Object> getWordbankNames() {
+    Map<Object, Object> allWordbanks = wordbankRepository.findAllWordbanks();
+    return allWordbanks.keySet();
+  }
+
   @RequestMapping(value = "/{name}", method = RequestMethod.GET)
   public Wordbank getWordbank(@PathVariable String name) throws WordbankNotFoundException {
     Wordbank wordbank = wordbankRepository.findWordbank(name);

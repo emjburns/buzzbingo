@@ -1,0 +1,15 @@
+<h3>New Game</h3>
+<div>
+Pick a name for the game, and choose a wordbank that will populate the bingo board.
+</div>
+<form #newGame="ngForm">
+  <label>Game Name: <input #newGameName /></label>
+  <select name="wordbank" ngModel>
+    <option value="" disabled>Choose a wordbank</option>
+    <option *ngFor="let wb of wordbanks" [ngValue]="wb">
+      {{ wb }}
+    </option>
+  </select>
+  <button (click)="createGame(newGameName.value,newGame.value.wordbank);
+    newGameName.value=''">Create Game</button>
+</form>

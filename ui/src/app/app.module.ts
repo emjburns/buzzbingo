@@ -7,10 +7,14 @@ import { AppComponent }         from './app.component';
 import { DashboardComponent }   from './dashboard.component';
 import { GameSearchComponent }   from './game-search.component'
 import { JoinGameComponent }    from './join-game.component'
+import { GameComponent }    from './game.component'
+import { NewGameComponent }    from './new-game.component'
 
 import { WordbankService }              from './wordbank.service';
 import { WordbankDetailComponent }      from './wordbank-detail.component';
 import { WordbanksComponent }           from './wordbanks.component';
+
+import { GameService }          from './game.service';
 
 import { AppRoutingModule }     from './app-routing.module';
 
@@ -37,11 +41,14 @@ import { ApiWordbankService } from './api-wordbank.service'
     GameSearchComponent,
     WordbankDetailComponent,
     WordbanksComponent,
-    JoinGameComponent
+    JoinGameComponent,
+    GameComponent,
+    NewGameComponent
   ],
   providers: [
     WordbankService,
-    ApiWordbankService
+    ApiWordbankService,
+    GameService
   ],
   bootstrap: [ AppComponent ]
 })

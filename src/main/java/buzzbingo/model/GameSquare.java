@@ -30,7 +30,7 @@ public class GameSquare implements Serializable {
     this.value = value;
   }
 
-  public Boolean getMarked() {
+  public Boolean isMarked() {
     return marked;
   }
 

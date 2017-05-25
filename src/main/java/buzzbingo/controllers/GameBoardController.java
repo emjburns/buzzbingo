@@ -41,9 +41,9 @@ public class GameBoardController extends ApiBaseController{
     GameBoard gameBoard = gameBoardRepository.findGameBoard(name);
     if (gameBoard == null) throw new GameBoardNotFoundException();
     Game game = gameRepository.findGame(gameBoard.getGameName());
-    if (game.getInPlay() == false) throw new GameNotInPlayException();
+    if (game.hasWinner() == false) throw new GameNotInPlayException();
 
-    TurnResult turnResult = gameBoard.markSquare(index);
+    TurnResult turnResult = gameBoard.toggleSquare(index);
     if (turnResult == TurnResult.GAMEOVER) {
       game.setWinner(true);
       gameRepository.saveGame(game);
@@ -59,9 +59,9 @@ public class GameBoardController extends ApiBaseController{
     GameBoard gameBoard = gameBoardRepository.findGameBoard(name);
     if (gameBoard == null) throw new GameBoardNotFoundException();
     Game game = gameRepository.findGame(gameBoard.getGameName());
-    if (game.getInPlay() == false) throw new GameNotInPlayException();
+    if (game.hasWinner() == false) throw new GameNotInPlayException();
 
-    TurnResult turnResult = gameBoard.unmarkSquare(index);
+    TurnResult turnResult = gameBoard.toggleSquare(index);
     gameBoardRepository.saveGameBoard(gameBoard);
     return gameBoard;
   }

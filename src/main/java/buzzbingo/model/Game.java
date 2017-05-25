@@ -12,21 +12,22 @@ public class Game implements Serializable {
   String name;
   String wordbank;
   SortedSet<String> players = new TreeSet<>();
-  Boolean inPlay = false;
   Boolean winner = false;
-  Integer dimention = 5;
-
 
   public Game(){
   }
 
-  public Game(String name, String wordbank, SortedSet<String> players, Boolean inPlay, Boolean winner, Integer dimention) {
+  public Game(String name, String wordbank, SortedSet<String> players) {
     this.name = name;
     this.wordbank = wordbank;
     this.players = players;
-    this.inPlay = inPlay;
+  }
+
+  public Game(String name, String wordbank, SortedSet<String> players, Boolean winner) {
+    this.name = name;
+    this.wordbank = wordbank;
+    this.players = players;
     this.winner = winner;
-    this.dimention = dimention;
   }
 
   public String getName() {
@@ -66,31 +67,12 @@ public class Game implements Serializable {
     return this;
   }
 
-  public Boolean getInPlay() {
-    return inPlay;
-  }
-
-  public Game setInPlay(Boolean inPlay) {
-    this.inPlay = inPlay;
-    return this;
-  }
-
-  public Boolean getWinner() {
+  public Boolean hasWinner() {
     return winner;
   }
 
   public Game setWinner(Boolean winner) {
     this.winner = winner;
-    this.inPlay = false;
-    return this;
-  }
-
-  public Integer getDimention() {
-    return dimention;
-  }
-
-  public Game setDimention(Integer dimention) {
-    this.dimention = dimention;
     return this;
   }
 
@@ -100,9 +82,7 @@ public class Game implements Serializable {
         "name='" + name + '\'' +
         ", wordbank='" + wordbank + '\'' +
         ", players=" + players +
-        ", inPlay=" + inPlay +
         ", winner=" + winner +
-        ", dimention=" + dimention +
         '}';
   }
 }

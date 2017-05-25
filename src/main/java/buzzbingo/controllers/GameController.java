@@ -46,8 +46,11 @@ public class GameController extends ApiBaseController{
     return game;
   }
 
+  //TODO: this should support a body of {wordbank:"mywordbank"} not just a string
   @RequestMapping(value = "/{gameName}", method = RequestMethod.POST)
   public Game createGame(@PathVariable String gameName, @RequestBody String wordbank) throws WordbankNotFoundException, DuplicateGameException {
+    System.out.println("GAME: " + gameName + ", WORDBANK: " + wordbank);
+
     if (wordbankRepository.findWordbank(wordbank) == null) {
       throw new WordbankNotFoundException();
     }
@@ -78,34 +81,6 @@ public class GameController extends ApiBaseController{
     if (game == null) throw new GameNotFoundException();
     if (!wordbankExists(wordbank)) throw new WordbankNotFoundException();
     game.setWordbank(wordbank);
-    gameRepository.saveGame(game);
-    return game;
-  }
-
-//  @RequestMapping(value = "/{gameName}/size", method = RequestMethod.PUT)
-//  public Game updateGameSize(@PathVariable String gameName, @RequestBody Integer dimension) throws GameNotFoundException {
-//    // Update entire object to new object
-//    Game game = gameRepository.findGame(gameName);
-//    if (game == null) throw new GameNotFoundException();
-//    game.setDimention(dimension);
-//    gameRepository.saveGame(game);
-//    return game;
-//  }
-
-  @RequestMapping(value = "/{gameName}/play", method = RequestMethod.PUT)
-  public Game startGame(@PathVariable String gameName) throws GameNotFoundException {
-    Game game = gameRepository.findGame(gameName);
-    if (game == null) throw new GameNotFoundException();
-    game.setInPlay(true);
-    gameRepository.saveGame(game);
-    return game;
-  }
-
-  @RequestMapping(value = "/{gameName}/play", method = RequestMethod.DELETE)
-  public Game stopGame(@PathVariable String gameName) throws GameNotFoundException {
-    Game game = gameRepository.findGame(gameName);
-    if (game == null) throw new GameNotFoundException();
-    game.setInPlay(false);
     gameRepository.saveGame(game);
     return game;
   }

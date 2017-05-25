@@ -28,17 +28,17 @@ public class GameBoardRepositoryImpl implements GameBoardRepository {
 
   @Override
   public void saveGameBoard(GameBoard gameBoard) {
-    hashOps.put(KEY, gameBoard.getPlayerName(), gameBoard);
+    hashOps.put(KEY, gameBoard.getGameBoardName(), gameBoard);
   }
 
   @Override
   public void updateGameBoard(GameBoard gameBoard) {
-    hashOps.put(KEY, gameBoard.getPlayerName(), gameBoard);
+    hashOps.put(KEY, gameBoard.getGameBoardName(), gameBoard);
   }
 
   @Override
-  public GameBoard findGameBoard(String playerName) {
-    return (GameBoard) hashOps.get(KEY, playerName);
+  public GameBoard findGameBoard(String gameBoardName) {
+    return (GameBoard) hashOps.get(KEY, gameBoardName);
   }
 
   @Override
@@ -47,7 +47,7 @@ public class GameBoardRepositoryImpl implements GameBoardRepository {
   }
 
   @Override
-  public void deleteGameBoard(String name) {
-    hashOps.delete(KEY, name);
+  public void deleteGameBoard(String gameBoardName) {
+    hashOps.delete(KEY, gameBoardName);
   }
 }

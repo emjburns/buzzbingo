@@ -12,49 +12,49 @@ import java.util.Set;
 public class GameBoard implements Serializable {
   String playerName;
   String gameName;
-  Integer dimension = 5;
-  Integer gameSize = dimension*dimension;
+  String gameBoardName;
   List<String> words = new ArrayList<>();
   List<GameSquare> board = new ArrayList<>();
   Integer numHits = 0;
+
+  private Integer dimension = 5;
+  private Integer gameSize = dimension*dimension;
 
   public GameBoard() {
   }
 
   public GameBoard(String playerName, String gameName, Set<String> words) {
     //need to pass in the words of the game
-    System.out.println("creating game board");
+    System.out.println("creating game board for " + playerName);
     this.playerName = playerName;
     this.gameName = gameName;
-    this.dimension = dimension;
+    gameBoardName = this.gameName + this.playerName;
 
     setWordlist(words);
     buildBoard();
-    System.out.println("game board");
   }
 
   public GameBoard buildBoard() {
     System.out.println("building board");
-    for (String w : this.words) {
-      board.add(new GameSquare(w));
+    for( int i = 0; i< gameSize; i++){
+      if (i == gameSize/2) {
+        //add middle free space
+        board.add(new GameSquare("FREE", true));
+      } else {
+        board.add(new GameSquare(words.get(i)));
+      }
     }
     return this;
   }
 
-  public TurnResult unmarkSquare(Integer index) {
+  public TurnResult toggleSquare(Integer index) {
     if (index >= gameSize || index < 0) return TurnResult.INVALID;
     GameSquare gameSquare = board.get(index);
-    if (gameSquare.getMarked()) {
+
+    if (gameSquare.isMarked()) {
       gameSquare.setMarked(false);
       numHits--;
-    }
-    return TurnResult.GAMENOTOVER;
-  }
-
-  public TurnResult markSquare(Integer index) {
-    if (index >= gameSize || index < 0) return TurnResult.INVALID;
-    GameSquare gameSquare = board.get(index);
-    if (!gameSquare.getMarked()) {
+    } else if (!gameSquare.isMarked()) {
       gameSquare.setMarked(true);
       numHits++;
       if (hasBingo()) return TurnResult.GAMEOVER;
@@ -64,14 +64,11 @@ public class GameBoard implements Serializable {
 
   private void setWordlist(Set<String> words) {
     List<String> listwords = new ArrayList<>(words);
-    while (listwords.size() < 9){
-      // If there are less than 9 words, double until there are more.
+    while (listwords.size() < 24){
+      // If there are less than 24 words, double until there are more.
       listwords.addAll(listwords);
     }
     Collections.shuffle(listwords);
-    if (listwords.size() < dimension){
-      Integer newDimension = ((Double) Math.floor(Math.sqrt(listwords.size()))).intValue();
-    }
     if (listwords.size() > gameSize) {
       listwords = listwords.subList(0, gameSize);
     }
@@ -84,6 +81,9 @@ public class GameBoard implements Serializable {
     if (numHits < 5) return false;
     if (numHits > 19) return true;
     //TODO: algorithm for determining winner
+    //check all horiz
+    //check all vert
+    //check criss cross
     return false;
   }
 
@@ -103,20 +103,12 @@ public class GameBoard implements Serializable {
     this.gameName = gameName;
   }
 
-  public Integer getDimension() {
-    return dimension;
+  public String getGameBoardName() {
+    return gameBoardName;
   }
 
-  public void setDimension(Integer dimension) {
-    this.dimension = dimension;
-  }
-
-  public Integer getGameSize() {
-    return gameSize;
-  }
-
-  public void setGameSize(Integer gameSize) {
-    this.gameSize = gameSize;
+  public void setGameBoardName(String gameBoardName) {
+    this.gameBoardName = gameBoardName;
   }
 
   public List<String> getWords() {
@@ -148,8 +140,7 @@ public class GameBoard implements Serializable {
     return "GameBoard{" +
         "playerName='" + playerName + '\'' +
         ", gameName='" + gameName + '\'' +
-        ", dimension=" + dimension +
-        ", gameSize=" + gameSize +
+        ", gameBoardName='" + gameBoardName + '\'' +
         ", words=" + words +
         ", board=" + board +
         ", numHits=" + numHits +

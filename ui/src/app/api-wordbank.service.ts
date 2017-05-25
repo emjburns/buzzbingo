@@ -14,7 +14,14 @@ export class ApiWordbankService {
   private wordbanksUrl = 'http://localhost:8080/v1/wordbank/';
 
   getWordbanks(): Observable<Wordbank[]> {
+    console.log("service")
     return this.http.get(this.wordbanksUrl)
+                    .map(this.extractData)
+                    .catch(this.handleError);
+  }
+
+  getWordbankNames(): Observable<String[]> {
+    return this.http.get(this.wordbanksUrl + "names")
                     .map(this.extractData)
                     .catch(this.handleError);
   }
@@ -59,7 +66,7 @@ export class ApiWordbankService {
 
   private extractData(res: Response) {
     let body = res.json();
-    // console.log(body)
+    console.log(body)
     return body || { };
   }
   private handleError (error: Response | any) {
