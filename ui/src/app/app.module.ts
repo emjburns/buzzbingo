@@ -9,6 +9,7 @@ import { GameSearchComponent }   from './game-search.component'
 import { JoinGameComponent }    from './join-game.component'
 import { GameComponent }    from './game.component'
 import { NewGameComponent }    from './new-game.component'
+import { UsernameComponent }   from './username.component'
 
 import { WordbankService }              from './wordbank.service';
 import { WordbankDetailComponent }      from './wordbank-detail.component';
@@ -24,6 +25,8 @@ import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 // import { InMemoryWordbankService } from './in-memory-wordbank.service'
 import { ApiWordbankService } from './api-wordbank.service'
 
+import { CookieModule } from 'ngx-cookie';
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -34,6 +37,7 @@ import { ApiWordbankService } from './api-wordbank.service'
     // InMemoryWebApiModule.forRoot(InMemoryWordbankService),
     // InMemoryWebApiModule.forRoot(ApiWordbankService),
     AppRoutingModule,
+    CookieModule.forRoot()
   ],
   declarations: [
     AppComponent,
@@ -43,7 +47,8 @@ import { ApiWordbankService } from './api-wordbank.service'
     WordbanksComponent,
     JoinGameComponent,
     GameComponent,
-    NewGameComponent
+    NewGameComponent,
+    UsernameComponent
   ],
   providers: [
     WordbankService,

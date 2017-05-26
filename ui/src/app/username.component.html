@@ -1,0 +1,12 @@
+
+<div class="set-username">
+  <h4>Pick a name to be identified by</h4>
+  <div *ngIf="hasUsername" >
+    <p class="current-username">Current username is "{{ playerUsername }}"</p>
+  </div>
+  <input #username value="{{playerUsername}}"/>
+  <button (click)="setUsername(username.value);
+    username.value=''">Set</button>
+  <button (click)="unsetUsername();
+    username.value=''">Unset</button>
+</div>
