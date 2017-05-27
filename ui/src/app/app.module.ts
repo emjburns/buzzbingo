@@ -1,4 +1,4 @@
-import { NgModule }       from '@angular/core';
+import { NgModule, ErrorHandler }       from '@angular/core';
 import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
 import { HttpModule, JsonpModule }    from '@angular/http';
@@ -23,9 +23,11 @@ import { AppRoutingModule }     from './app-routing.module';
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 // import { InMemoryDataService }  from './in-memory-data.service';
 // import { InMemoryWordbankService } from './in-memory-wordbank.service'
-import { ApiWordbankService } from './api-wordbank.service'
+import { ApiWordbankService } from './api-wordbank.service';
 
 import { CookieModule } from 'ngx-cookie';
+
+import { MyErrorHandler } from './MyErrorHandler';
 
 @NgModule({
   imports: [
@@ -53,7 +55,8 @@ import { CookieModule } from 'ngx-cookie';
   providers: [
     WordbankService,
     ApiWordbankService,
-    GameService
+    GameService,
+    {provide: ErrorHandler, useClass: MyErrorHandler}
   ],
   bootstrap: [ AppComponent ]
 })

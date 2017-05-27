@@ -4,7 +4,7 @@
   <div *ngIf="hasUsername" >
     <p class="current-username">Current username is "{{ playerUsername }}"</p>
   </div>
-  <input #username value="{{playerUsername}}"/>
+  <input #username />
   <button (click)="setUsername(username.value);
     username.value=''">Set</button>
   <button (click)="unsetUsername();

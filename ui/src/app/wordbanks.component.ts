@@ -44,4 +44,28 @@ export class WordbanksComponent implements OnInit {
        );
   }
 
+  deleteWordbank(name: string) {
+    if (!name) { return; }
+
+    let wb: Wordbank;
+    this.apiWordbankService.getWordbank(name)
+      .subscribe(
+        wordbank  => wb = wordbank,
+        error =>  this.errorMessage = <any>error
+      );
+
+    if (!wb) { return; }
+    //TODO: delete call
+    //TODO: remove wordbank from list of wordbanks
+  }
+
+  getWordbank(name: string) {
+    if (!name) { return; }
+    this.apiWordbankService.getWordbank(name)
+      .subscribe(
+        wordbank  => this.wordbanks.push(wordbank),
+        error =>  this.errorMessage = <any>error
+      );
+  }
+
 }
