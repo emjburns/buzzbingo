@@ -28,7 +28,7 @@ public class GameBoard implements Serializable {
     System.out.println("creating game board for " + playerName);
     this.playerName = playerName;
     this.gameName = gameName;
-    gameBoardName = this.gameName + this.playerName;
+    gameBoardName = this.gameName + "-" + this.playerName;
 
     setWordlist(words);
     buildBoard();
@@ -38,7 +38,7 @@ public class GameBoard implements Serializable {
     System.out.println("building board");
     for( int i = 0; i< gameSize; i++){
       if (i == gameSize/2) {
-        //add middle free space
+//        add middle free space
         board.add(new GameSquare("FREE", true));
       } else {
         board.add(new GameSquare(words.get(i)));
@@ -63,14 +63,17 @@ public class GameBoard implements Serializable {
   }
 
   private void setWordlist(Set<String> words) {
-    List<String> listwords = new ArrayList<>(words);
+    List<String> listwords = new ArrayList<>();
+    listwords.addAll(words);
     while (listwords.size() < 24){
       // If there are less than 24 words, double until there are more.
       listwords.addAll(listwords);
     }
     Collections.shuffle(listwords);
     if (listwords.size() > gameSize) {
-      listwords = listwords.subList(0, gameSize);
+      ArrayList<String> newWords = new ArrayList<>();
+      newWords.addAll(listwords.subList(0, gameSize));
+      listwords = newWords;
     }
     this.words = listwords;
     System.out.println("words: " + this.words);
