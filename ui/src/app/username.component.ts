@@ -3,6 +3,8 @@ import { Router }            from '@angular/router';
 import { Observable }        from 'rxjs/Observable';
 import { Subject }           from 'rxjs/Subject';
 
+import { BuzzUtils }     from './buzzutils'
+
 import { CookieService } from 'ngx-cookie';
 
 // Observable class extensions
@@ -17,17 +19,18 @@ import { CookieService } from 'ngx-cookie';
   selector: 'set-username',
   templateUrl: './username.component.html',
   styleUrls: [ './username.component.css' ],
-  // providers: [GameSearchService]
+  providers: [BuzzUtils]
 })
 export class UsernameComponent implements OnInit {
   playerUsername: string;
-  key: "username";
   hasUsername: boolean = false;
 
   constructor(
     // private gameSearchService: GameSearchService,
     private cookieService: CookieService,
-    private router: Router) {}
+    private router: Router,
+    private buzzutils: BuzzUtils
+  ) {}
   // Push a search term into the observable stream.
 
   ngOnInit(): void {
@@ -39,19 +42,19 @@ export class UsernameComponent implements OnInit {
 
   setUsername(username: string): void {
     if (!username) { return; }
-    this.cookieService.put(this.key, username);
+    this.cookieService.put(this.buzzutils.cookieKey, username);
     this.playerUsername = username
     this.hasUsername = true;
   }
 
   unsetUsername(): void {
-    this.cookieService.remove(this.key)
+    this.cookieService.remove(this.buzzutils.cookieKey)
     this.hasUsername = false
     this.playerUsername = ''
   }
 
   getUsername(): string {
-    return this.cookieService.get(this.key)
+    return this.cookieService.get(this.buzzutils.cookieKey)
   }
 
 

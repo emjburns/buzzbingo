@@ -3,7 +3,7 @@
   <label>New wordbank: <input #newWordbankName /></label>
   <div> Words (comma separated): <textarea #newWordbankWords></textarea> </div>
   <button (click)="addWordbank(newWordbankName.value, newWordbankWords.value);
-    newWordbankName.value=''">Add Wordbank</button>
+    newWordbankName.value=''; newWordbankWords.value=''">Add Wordbank</button>
 </span>
 
 <div class="grid grid-pad">
@@ -13,8 +13,6 @@
     </div>
   </a>
 </div>
-
-
 
 <p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
 <!-- <hero-search></hero-search> -->

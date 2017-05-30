@@ -1,5 +1,6 @@
 package buzzbingo.model;
 
+import buzzbingo.BuzzUtils;
 import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
@@ -28,7 +29,7 @@ public class GameBoard implements Serializable {
     System.out.println("creating game board for " + playerName);
     this.playerName = playerName;
     this.gameName = gameName;
-    gameBoardName = this.gameName + "-" + this.playerName;
+    gameBoardName = BuzzUtils.gameboardname(gameName, playerName);
 
     setWordlist(words);
     buildBoard();
@@ -39,9 +40,9 @@ public class GameBoard implements Serializable {
     for( int i = 0; i< gameSize; i++){
       if (i == gameSize/2) {
 //        add middle free space
-        board.add(new GameSquare("FREE", true));
+        board.add(new GameSquare("FREE", i,true));
       } else {
-        board.add(new GameSquare(words.get(i)));
+        board.add(new GameSquare(words.get(i),i));
       }
     }
     return this;

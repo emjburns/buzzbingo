@@ -4,6 +4,7 @@ import { DashboardComponent }   from './dashboard.component';
 import { WordbanksComponent }   from './wordbanks.component';
 import { WordbankDetailComponent }   from './wordbank-detail.component';
 import { GameComponent }        from './game.component';
+import { GameboardComponent }        from './gameboard.component';
 import { NewGameComponent }       from './new-game.component';
 
 const routes: Routes = [
@@ -11,7 +12,7 @@ const routes: Routes = [
   { path: 'dashboard',  component: DashboardComponent },
   { path: 'wordbanks/:name', component: WordbankDetailComponent },
   { path: 'wordbanks',  component: WordbanksComponent },
-  // { path: 'game/:name',  component: GameComponent },
+  { path: 'gameboard/:gameboardName',  component: GameboardComponent },
   { path: 'game',  component: GameComponent },
   { path: 'newgame',  component: NewGameComponent }
 ];

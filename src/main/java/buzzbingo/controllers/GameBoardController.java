@@ -36,8 +36,9 @@ public class GameBoardController extends ApiBaseController{
     return gameBoard;
   }
 
+
   @RequestMapping(value = "/{name}/{index}", method = RequestMethod.PUT)
-  public GameBoard makeMove(@PathVariable String name, @PathVariable Integer index) throws GameBoardNotFoundException, GameNotInPlayException {
+  public GameBoard toggleSquare(@PathVariable String name, @PathVariable Integer index) throws GameBoardNotFoundException, GameNotInPlayException {
     GameBoard gameBoard = gameBoardRepository.findGameBoard(name);
     if (gameBoard == null) throw new GameBoardNotFoundException();
     Game game = gameRepository.findGame(gameBoard.getGameName());
@@ -51,19 +52,38 @@ public class GameBoardController extends ApiBaseController{
     }
     gameBoardRepository.saveGameBoard(gameBoard);
     return gameBoard;
-
   }
 
-  @RequestMapping(value = "/{name}/{index}", method = RequestMethod.DELETE)
-  public GameBoard retractMove(@PathVariable String name, @PathVariable Integer index) throws GameBoardNotFoundException, GameNotInPlayException {
-    GameBoard gameBoard = gameBoardRepository.findGameBoard(name);
-    if (gameBoard == null) throw new GameBoardNotFoundException();
-    Game game = gameRepository.findGame(gameBoard.getGameName());
-    if (game.hasWinner() == false) throw new GameNotInPlayException();
 
-    TurnResult turnResult = gameBoard.toggleSquare(index);
-    gameBoardRepository.saveGameBoard(gameBoard);
-    return gameBoard;
-  }
+
+//  @RequestMapping(value = "/{name}/{index}", method = RequestMethod.PUT)
+//  public GameBoard makeMove(@PathVariable String name, @PathVariable Integer index) throws GameBoardNotFoundException, GameNotInPlayException {
+//    GameBoard gameBoard = gameBoardRepository.findGameBoard(name);
+//    if (gameBoard == null) throw new GameBoardNotFoundException();
+//    Game game = gameRepository.findGame(gameBoard.getGameName());
+//    if (game.hasWinner() == false) throw new GameNotInPlayException();
+//
+//    TurnResult turnResult = gameBoard.toggleSquare(index);
+//    if (turnResult == TurnResult.GAMEOVER) {
+//      game.setWinner(true);
+//      gameRepository.saveGame(game);
+//      //TODO: make sure game is ended automatically
+//    }
+//    gameBoardRepository.saveGameBoard(gameBoard);
+//    return gameBoard;
+//
+//  }
+//
+//  @RequestMapping(value = "/{name}/{index}", method = RequestMethod.DELETE)
+//  public GameBoard retractMove(@PathVariable String name, @PathVariable Integer index) throws GameBoardNotFoundException, GameNotInPlayException {
+//    GameBoard gameBoard = gameBoardRepository.findGameBoard(name);
+//    if (gameBoard == null) throw new GameBoardNotFoundException();
+//    Game game = gameRepository.findGame(gameBoard.getGameName());
+//    if (game.hasWinner() == false) throw new GameNotInPlayException();
+//
+//    TurnResult turnResult = gameBoard.toggleSquare(index);
+//    gameBoardRepository.saveGameBoard(gameBoard);
+//    return gameBoard;
+//  }
 
 }

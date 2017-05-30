@@ -2,16 +2,21 @@ import { Injectable }       from '@angular/core';
 import { Http, Response, Headers, RequestOptions }   from '@angular/http';
 import { Observable }       from 'rxjs/Observable';
 import { Wordbank }         from './wordbank';
+import { BuzzUtils }        from './buzzutils';
 
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 @Injectable()
 export class ApiWordbankService {
-  constructor (private http: Http) {}
+  constructor (
+    private http: Http,
+    private buzzutils: BuzzUtils
+  ) {}
 
 
-  private wordbanksUrl = 'http://localhost:8080/v1/wordbank/';
+  // private wordbanksUrl = 'http://localhost:8080/v1/wordbank/';
+  private wordbanksUrl = this.buzzutils.baseURL() + 'wordbank/';
 
   getWordbanks(): Observable<Wordbank[]> {
     console.log("service")

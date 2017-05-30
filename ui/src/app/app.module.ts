@@ -5,25 +5,23 @@ import { HttpModule, JsonpModule }    from '@angular/http';
 
 import { AppComponent }         from './app.component';
 import { DashboardComponent }   from './dashboard.component';
-import { GameSearchComponent }   from './game-search.component'
-import { JoinGameComponent }    from './join-game.component'
-import { GameComponent }    from './game.component'
-import { NewGameComponent }    from './new-game.component'
-import { UsernameComponent }   from './username.component'
-
-import { WordbankService }              from './wordbank.service';
+import { GameSearchComponent }   from './game-search.component';
+import { JoinGameComponent }    from './join-game.component';
+import { GameComponent }    from './game.component';
+import { NewGameComponent }    from './new-game.component';
+import { UsernameComponent }   from './username.component';
 import { WordbankDetailComponent }      from './wordbank-detail.component';
 import { WordbanksComponent }           from './wordbanks.component';
+import { GameboardComponent }           from './gameboard.component';
+
 
 import { GameService }          from './game.service';
+import { GameboardService }          from './gameboard.service';
+import { ApiWordbankService } from './api-wordbank.service';
+import { BuzzUtils }          from './buzzutils'
 
 import { AppRoutingModule }     from './app-routing.module';
 
-// Imports for loading & configuring the in-memory web api
-import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
-// import { InMemoryDataService }  from './in-memory-data.service';
-// import { InMemoryWordbankService } from './in-memory-wordbank.service'
-import { ApiWordbankService } from './api-wordbank.service';
 
 import { CookieModule } from 'ngx-cookie';
 
@@ -35,9 +33,6 @@ import { MyErrorHandler } from './MyErrorHandler';
     FormsModule,
     HttpModule,
     JsonpModule,
-    // InMemoryWebApiModule.forRoot(InMemoryDataService),
-    // InMemoryWebApiModule.forRoot(InMemoryWordbankService),
-    // InMemoryWebApiModule.forRoot(ApiWordbankService),
     AppRoutingModule,
     CookieModule.forRoot()
   ],
@@ -50,12 +45,14 @@ import { MyErrorHandler } from './MyErrorHandler';
     JoinGameComponent,
     GameComponent,
     NewGameComponent,
-    UsernameComponent
+    UsernameComponent,
+    GameboardComponent
   ],
   providers: [
-    WordbankService,
     ApiWordbankService,
     GameService,
+    GameboardService,
+    BuzzUtils,
     {provide: ErrorHandler, useClass: MyErrorHandler}
   ],
   bootstrap: [ AppComponent ]

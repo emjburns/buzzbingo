@@ -1,7 +1,7 @@
 package buzzbingo.controllers;
 
+import buzzbingo.BuzzUtils;
 import buzzbingo.exceptions.DuplicateGameException;
-import buzzbingo.exceptions.DuplicatePlayerException;
 import buzzbingo.exceptions.GameNotFoundException;
 import buzzbingo.exceptions.WordbankNotFoundException;
 import buzzbingo.model.Game;
@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
@@ -99,7 +100,7 @@ public class GameController extends ApiBaseController{
   }
 
   @RequestMapping(value = "/{gameName}/players", method = RequestMethod.PUT)
-  public Game addPlayers(@PathVariable String gameName, @RequestBody List<String> players) throws GameNotFoundException, DuplicatePlayerException {
+  public Game addPlayers(@PathVariable String gameName, @RequestBody List<String> players) throws GameNotFoundException {
     Game game = gameRepository.findGame(gameName);
     if (game == null) throw new GameNotFoundException();
     game.addPlayers(players);
@@ -107,21 +108,27 @@ public class GameController extends ApiBaseController{
 
     for (String player : players) {
       System.out.println("Player: " +player);
-      GameBoard gameBoard = gameBoardRepository.findGameBoard(player);
+      GameBoard gameBoard = gameBoardRepository.findGameBoard(BuzzUtils.gameboardname(gameName,player));
       System.out.println("found: " + gameBoard);
 
-      if (gameBoard != null) {
-        if (gameBoard.getGameName() == gameName) throw new DuplicatePlayerException(); //this is a duplicate
-        //otherwise, just a leftover board, clean it up
-        gameBoardRepository.deleteGameBoard(player);
+      // if player doesn't exist, create
+      // if player exists, keep old board
+      if (gameBoard == null) {
+        gameBoard = new GameBoard(player, gameName, wordbank.getWords());
+        gameBoardRepository.saveGameBoard(gameBoard);
       }
-
-      gameBoard = new GameBoard(player, gameName, wordbank.getWords());
       System.out.println(gameBoard);
-      gameBoardRepository.saveGameBoard(gameBoard);
     }
+
     gameRepository.saveGame(game);
     return game;
+  }
+
+  @RequestMapping(value = "/{gameName}/players/{playerName}", method = RequestMethod.PUT)
+  public Game addPlayer(@PathVariable String gameName, @PathVariable String playerName) throws GameNotFoundException {
+    ArrayList<String> player = new ArrayList<String>();
+    player.add(playerName);
+    return addPlayers(gameName, player);
   }
 
   @RequestMapping(value = "/{gameName}/players", method = RequestMethod.DELETE)
@@ -131,10 +138,17 @@ public class GameController extends ApiBaseController{
     game.removePlayers(players);
     for (String player : players) {
       //remove board for player that are removed from a game.
-      gameBoardRepository.deleteGameBoard(player);
+      gameBoardRepository.deleteGameBoard(BuzzUtils.gameboardname(gameName,player));
     }
     gameRepository.saveGame(game);
     return game;
+  }
+
+  @RequestMapping(value = "/{gameName}/players/{playerName}", method = RequestMethod.DELETE)
+  public Game removePlayer(@PathVariable String gameName, @PathVariable String playerName) throws GameNotFoundException {
+    ArrayList<String> player = new ArrayList<String>();
+    player.add(playerName);
+    return removePlayers(gameName, player);
   }
 
   protected Boolean wordbankExists(String gameName) {
