@@ -3,7 +3,13 @@ import { Component, OnInit } from '@angular/core';
 import { Wordbank } from './wordbank';
 // import { WordbankService } from './wordbank.service';
 import { ApiWordbankService } from './api-wordbank.service'
+// Observable class extensions
+import 'rxjs/add/observable/of';
 
+// Observable operators
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
 
 @Component({
   selector: 'wordbank-dashboard',

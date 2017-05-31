@@ -123,7 +123,15 @@ button:disabled {
   width: 200px;
   text-align: center;
 }
-.winner{
+.winner {
+  text-align: center;
+  padding:20px;
+  border-radius: 2px;
+}
+.winner-banner {
+  color:#ffcc00;
+}
+.loser {
   text-align: center;
   padding-bottom:20px;
 }

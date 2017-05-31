@@ -4,7 +4,13 @@ import { Game } from './game';
 // import { WordbankService } from './wordbank.service';
 import { GameService } from './game.service'
 import { ApiWordbankService } from './api-wordbank.service'
+// Observable class extensions
+import 'rxjs/add/observable/of';
 
+// Observable operators
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
 
 @Component({
   selector: 'new-game',

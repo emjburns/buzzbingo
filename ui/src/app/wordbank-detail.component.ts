@@ -5,6 +5,13 @@ import { Location }               from '@angular/common';
 
 import { Wordbank }        from './wordbank';
 import { ApiWordbankService} from './api-wordbank.service';
+// Observable class extensions
+import 'rxjs/add/observable/of';
+
+// Observable operators
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
 
 @Component({
   selector: 'my-wordbank-detail',

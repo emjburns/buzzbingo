@@ -3,6 +3,7 @@ package buzzbingo.controllers;
 import buzzbingo.BuzzUtils;
 import buzzbingo.exceptions.DuplicateGameException;
 import buzzbingo.exceptions.GameNotFoundException;
+import buzzbingo.exceptions.GameNotInPlayException;
 import buzzbingo.exceptions.WordbankNotFoundException;
 import buzzbingo.model.Game;
 import buzzbingo.model.GameBoard;
@@ -89,6 +90,13 @@ public class GameController extends ApiBaseController{
   @RequestMapping(value = "/{gameName}", method = RequestMethod.DELETE)
   public void deleteGame(@PathVariable String gameName) throws GameNotFoundException {
     if (!gameExists(gameName)) throw new GameNotFoundException();
+    Game game = gameRepository.findGame(gameName);
+    for ( String player : game.getPlayers()){
+      String gameBoardName = BuzzUtils.gameboardname(gameName, player);
+      System.out.println("Deleting game board [" + gameBoardName+ "]");
+      gameBoardRepository.deleteGameBoard(gameBoardName);
+    }
+    System.out.println("Deleting game [" + gameName+ "]");
     gameRepository.deleteGame(gameName);
   }
 
@@ -100,9 +108,11 @@ public class GameController extends ApiBaseController{
   }
 
   @RequestMapping(value = "/{gameName}/players", method = RequestMethod.PUT)
-  public Game addPlayers(@PathVariable String gameName, @RequestBody List<String> players) throws GameNotFoundException {
+  public Game addPlayers(@PathVariable String gameName, @RequestBody List<String> players) throws GameNotFoundException, GameNotInPlayException {
     Game game = gameRepository.findGame(gameName);
     if (game == null) throw new GameNotFoundException();
+    if (game.hasWinner()) throw new GameNotInPlayException();
+
     game.addPlayers(players);
     Wordbank wordbank = wordbankRepository.findWordbank(game.getWordbank());
 
@@ -125,7 +135,7 @@ public class GameController extends ApiBaseController{
   }
 
   @RequestMapping(value = "/{gameName}/players/{playerName}", method = RequestMethod.PUT)
-  public Game addPlayer(@PathVariable String gameName, @PathVariable String playerName) throws GameNotFoundException {
+  public Game addPlayer(@PathVariable String gameName, @PathVariable String playerName) throws GameNotFoundException, GameNotInPlayException {
     ArrayList<String> player = new ArrayList<String>();
     player.add(playerName);
     return addPlayers(gameName, player);

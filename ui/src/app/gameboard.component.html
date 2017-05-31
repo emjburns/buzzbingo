@@ -1,12 +1,11 @@
  <div *ngIf="gameboard">
 
   <div class="winner" *ngIf="gameboard.bingo">
-    <h1> YOU WON! CONGRATULATIONS! </h1>
+    <h1 class="winner-banner"> YOU WON! CONGRATULATIONS! </h1>
     <h6>...now get back to work ;)</h6>
   </div>
   <div class="loser" *ngIf="!gameboard.bingo && gameboard.gameover">
-    <h1> OOPS better luck next time </h1>
-    <h6>... XX beat you too it.</h6>
+    <h1> You lost... better luck next time </h1>
   </div>
 
 

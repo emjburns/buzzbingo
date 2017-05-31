@@ -1,5 +1,6 @@
 package buzzbingo.controllers;
 
+import buzzbingo.BuzzUtils;
 import buzzbingo.exceptions.GameBoardNotFoundException;
 import buzzbingo.exceptions.GameNotInPlayException;
 import buzzbingo.exceptions.InvalidMoveException;
@@ -73,8 +74,19 @@ public class GameBoardController extends ApiBaseController{
       game.setWinner(true);
       game.setWinnerName(gameBoard.getPlayerName());
       gameRepository.saveGame(game);
+
+      updatePlayersGameStatus(game);
     }
 
     return gameBoard;
+  }
+
+  private void updatePlayersGameStatus(Game game){
+    // Each board needs to reflect game status
+    for(String player : game.getPlayers()){
+      GameBoard gameBoard = gameBoardRepository.findGameBoard(BuzzUtils.gameboardname(game.getName(),player));
+      gameBoard.setGameover(true);
+      gameBoardRepository.saveGameBoard(gameBoard);
+    }
   }
 }
