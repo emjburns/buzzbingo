@@ -37,6 +37,12 @@ export class GameboardService {
       .catch(this.handleError);
   }
 
+  toggle(gamename: string, playername: string, index: number): Observable<Gameboard> {
+    return this.http.put(this.gameBoardUrl + this.buzzutils.gameboardName(gamename, playername) + "/" + index, "" )
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
   private extractData(res: Response) {
     let body = res.json();
     console.log(body)

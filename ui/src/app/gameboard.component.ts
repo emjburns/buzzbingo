@@ -5,6 +5,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { GameService } from './game.service'
 import { GameboardService } from './gameboard.service'
 import { Game } from './game';
+import { Square } from './square';
 import { Gameboard } from './gameboard';
 // import { WordbankService } from './wordbank.service';
 
@@ -32,8 +33,17 @@ export class GameboardComponent implements OnInit {
       .switchMap((params: Params) => this.gameboardService.getGameboard(params['gameboardName']))
       .subscribe(
         gameboard => this.gameboard = gameboard,
-        error =>  this.errorMessage = <any>error
+        error =>  this.errorMessage = <any>error,
       );
   }
 
+  toggle(index: number){
+    if (!index) { return; }
+
+    this.gameboardService.toggle(this.gameboard.gameName, this.gameboard.playerName, index)
+    .subscribe(
+      gameboard => this.gameboard = gameboard,
+      error =>  this.errorMessage = <any>error
+    );
+  }
 }

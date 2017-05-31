@@ -42,7 +42,7 @@ public class GameBoardController extends ApiBaseController{
     GameBoard gameBoard = gameBoardRepository.findGameBoard(name);
     if (gameBoard == null) throw new GameBoardNotFoundException();
     Game game = gameRepository.findGame(gameBoard.getGameName());
-    if (game.hasWinner() == false) throw new GameNotInPlayException();
+    if (game.hasWinner() == true) throw new GameNotInPlayException();
 
     TurnResult turnResult = gameBoard.toggleSquare(index);
     if (turnResult == TurnResult.GAMEOVER) {

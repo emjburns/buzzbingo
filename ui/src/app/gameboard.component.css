@@ -41,6 +41,21 @@ h4 {
   cursor: pointer;
   color: #262626;
 }
+.marked {
+  padding: 20px;
+  text-align: center;
+  color: #ffcc00;
+  max-height: 120px;
+  min-width: 120px;
+  max-width: 200px;
+  background-color: black;
+  border-radius: 2px;
+}
+.marked:hover {
+  background-color: #4D5656;
+  cursor: pointer;
+  color: #ffcc00;
+}
 .grid-pad {
   padding: 10px 0;
 }

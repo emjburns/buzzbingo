@@ -1,10 +1,11 @@
-{{ gameboard }}
-
-<p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
-<!-- <div class="grid">
-  <a *ngFor="let word of words" class="col-1-5">
-    <div class="module">
-      <h4>{{word}}</h4>
+ <div *ngIf="gameboard">
+  <div class="grid">
+    <div *ngFor="let square of gameboard.board" class="col-1-5">
+      <!-- <div class="module"> -->
+      <div [class]="square.marked? 'marked' : 'module'" (click)="toggle(square.index); square.marked = !square.marked">
+        <h4> {{ square.value }} </h4>
+      </div>
     </div>
-  </a>
-</div> -->
+  </div>
+</div>
+<p class="error" *ngIf="errorMessage">{{errorMessage}}</p>
