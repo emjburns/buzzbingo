@@ -2,6 +2,7 @@ package buzzbingo.controllers;
 
 import buzzbingo.exceptions.GameBoardNotFoundException;
 import buzzbingo.exceptions.GameNotInPlayException;
+import buzzbingo.exceptions.InvalidMoveException;
 import buzzbingo.model.Game;
 import buzzbingo.model.GameBoard;
 import buzzbingo.model.TurnResult;
@@ -38,52 +39,42 @@ public class GameBoardController extends ApiBaseController{
 
 
   @RequestMapping(value = "/{name}/{index}", method = RequestMethod.PUT)
-  public GameBoard toggleSquare(@PathVariable String name, @PathVariable Integer index) throws GameBoardNotFoundException, GameNotInPlayException {
+  public GameBoard toggleSquare(@PathVariable String name, @PathVariable Integer index) throws GameBoardNotFoundException, GameNotInPlayException, InvalidMoveException {
     GameBoard gameBoard = gameBoardRepository.findGameBoard(name);
     if (gameBoard == null) throw new GameBoardNotFoundException();
     Game game = gameRepository.findGame(gameBoard.getGameName());
-    if (game.hasWinner() == true) throw new GameNotInPlayException();
+    if (game.hasWinner()) throw new GameNotInPlayException();
 
     TurnResult turnResult = gameBoard.toggleSquare(index);
-    if (turnResult == TurnResult.GAMEOVER) {
-      game.setWinner(true);
-      gameRepository.saveGame(game);
-      //TODO: make sure game is ended automatically
+    if (turnResult == TurnResult.INVALID){
+      throw new InvalidMoveException();
     }
+    System.out.println("Player [" +gameBoard.getPlayerName() + "] clicked spot [" + index + "]");
+
     gameBoardRepository.saveGameBoard(gameBoard);
     return gameBoard;
   }
 
+  @RequestMapping(value = "/{name}/bingo", method = RequestMethod.PUT)
+  public GameBoard sayBingo(@PathVariable String name) throws GameBoardNotFoundException, GameNotInPlayException {
+    GameBoard gameBoard = gameBoardRepository.findGameBoard(name);
+    if (gameBoard == null) throw new GameBoardNotFoundException();
 
+    Game game = gameRepository.findGame(gameBoard.getGameName());
+    if (game.hasWinner()) throw new GameNotInPlayException();
 
-//  @RequestMapping(value = "/{name}/{index}", method = RequestMethod.PUT)
-//  public GameBoard makeMove(@PathVariable String name, @PathVariable Integer index) throws GameBoardNotFoundException, GameNotInPlayException {
-//    GameBoard gameBoard = gameBoardRepository.findGameBoard(name);
-//    if (gameBoard == null) throw new GameBoardNotFoundException();
-//    Game game = gameRepository.findGame(gameBoard.getGameName());
-//    if (game.hasWinner() == false) throw new GameNotInPlayException();
-//
-//    TurnResult turnResult = gameBoard.toggleSquare(index);
-//    if (turnResult == TurnResult.GAMEOVER) {
-//      game.setWinner(true);
-//      gameRepository.saveGame(game);
-//      //TODO: make sure game is ended automatically
-//    }
-//    gameBoardRepository.saveGameBoard(gameBoard);
-//    return gameBoard;
-//
-//  }
-//
-//  @RequestMapping(value = "/{name}/{index}", method = RequestMethod.DELETE)
-//  public GameBoard retractMove(@PathVariable String name, @PathVariable Integer index) throws GameBoardNotFoundException, GameNotInPlayException {
-//    GameBoard gameBoard = gameBoardRepository.findGameBoard(name);
-//    if (gameBoard == null) throw new GameBoardNotFoundException();
-//    Game game = gameRepository.findGame(gameBoard.getGameName());
-//    if (game.hasWinner() == false) throw new GameNotInPlayException();
-//
-//    TurnResult turnResult = gameBoard.toggleSquare(index);
-//    gameBoardRepository.saveGameBoard(gameBoard);
-//    return gameBoard;
-//  }
+    System.out.println("Player [" +gameBoard.getPlayerName() + "] thinks they have bingo");
 
+    Boolean reallyBingo = gameBoard.declareBingo();
+    gameBoardRepository.saveGameBoard(gameBoard);
+
+    if (reallyBingo) {
+      System.out.println("Indeed, Player [" +gameBoard.getPlayerName() + "] has BINGO!");
+      game.setWinner(true);
+      game.setWinnerName(gameBoard.getPlayerName());
+      gameRepository.saveGame(game);
+    }
+
+    return gameBoard;
+  }
 }

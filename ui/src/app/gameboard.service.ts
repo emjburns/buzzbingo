@@ -15,14 +15,7 @@ export class GameboardService {
     private buzzutils: BuzzUtils
   ) {}
 
-  // private gameBoardUrl = 'http://localhost:8080/v1/gameboard/';
   private gameBoardUrl = this.buzzutils.baseURL() + "gameboard/"
-
-  // getGameboard(gamename: string, playername: string): Observable<Gameboard> {
-  //   return this.http.get(this.gameBoardUrl + this.gameboardName(gamename, playername))
-  //     .map(this.extractData)
-  //     .catch(this.handleError);
-  // }
 
   getGameboard(gameboardName: string): Observable<Gameboard> {
     console.log("getting gameboard " + gameboardName)
@@ -39,6 +32,13 @@ export class GameboardService {
 
   toggle(gamename: string, playername: string, index: number): Observable<Gameboard> {
     return this.http.put(this.gameBoardUrl + this.buzzutils.gameboardName(gamename, playername) + "/" + index, "" )
+      .map(this.extractData)
+      .catch(this.handleError);
+  }
+
+  bingo(gamename: string, playername: string): Observable<Gameboard> {
+    console.log("so you think you have BINGO");
+    return this.http.put(this.gameBoardUrl + this.buzzutils.gameboardName(gamename, playername) + "/bingo", "" )
       .map(this.extractData)
       .catch(this.handleError);
   }

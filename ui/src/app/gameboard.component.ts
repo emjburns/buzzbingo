@@ -19,6 +19,7 @@ export class GameboardComponent implements OnInit {
   errorMessage: string;
   gameboard: Gameboard;
   mode = 'Observable';
+  game: Game;
 
   constructor(
     private gameService: GameService,
@@ -38,12 +39,26 @@ export class GameboardComponent implements OnInit {
   }
 
   toggle(index: number){
-    if (!index) { return; }
-
     this.gameboardService.toggle(this.gameboard.gameName, this.gameboard.playerName, index)
     .subscribe(
       gameboard => this.gameboard = gameboard,
       error =>  this.errorMessage = <any>error
     );
+  }
+
+  bingo() {
+    this.gameboardService.bingo(this.gameboard.gameName, this.gameboard.playerName)
+    .subscribe(
+      gameboard => this.gameboard = gameboard,
+      error =>  this.errorMessage = <any>error
+    );
+  }
+
+  getGame() {
+    this.gameService.getGame(this.gameboard.gameName)
+      .subscribe(
+        game => this.game = game,
+        error => this.errorMessage = <any>error
+      )
   }
 }

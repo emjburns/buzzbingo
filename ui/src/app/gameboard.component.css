@@ -56,6 +56,27 @@ h4 {
   cursor: pointer;
   color: #ffcc00;
 }
+.go-marked {
+  background-color: #3498DB;
+  /*background-color: #757575;*/
+  padding: 20px;
+  text-align: center;
+  color: white;
+  max-height: 120px;
+  min-width: 120px;
+  max-width: 200px;
+  border-radius: 2px;
+}
+.go-module {
+  background-color: #BDBDBD;
+  padding: 20px;
+  text-align: center;
+  color: black;
+  max-height: 120px;
+  min-width: 120px;
+  max-width: 200px;
+  border-radius: 2px;
+}
 .grid-pad {
   padding: 10px 0;
 }
@@ -96,51 +117,13 @@ button:disabled {
 .app-title {
   padding: 20px;
 }
-
-.bingo-square-header {
-  border-radius: 10%;
-  border: solid lightgrey;
+.bingo {
+  background-color: #85C1E9;
+  display:block;
+  width: 200px;
   text-align: center;
-  font-size: 1.8em;
-  font-weight: bold;
 }
-
-.bingo-square {
-  border-radius: 10%;
-  border: solid lightgrey;
+.winner{
   text-align: center;
-  font-size: 1em;
-  padding: .4em;
-}
-
-.bingo-card-balls-title {
-  font-size: 1.5em;
-  font-weight: bold;
-  text-align: center;
-  padding: 0;
-}
-
-.bingo-card-balls-called {
-  font-size: 1em;
-}
-
-.bingo-ball {
-  background-color: beige;
-  border: solid grey 1px;
-  border-radius: 50%;
-  color: black;
-  width: 2em;
-  padding: .3em;
-  font-size: .8em;
-  text-align: center;
-  box-shadow: 2px 2px 1px lightgrey;
-}
-
-.bingo-square-selected {
-  background-color: skyblue;
-}
-
-.bingo-square-bingo {
-  background-color: #98ffa1;
-  font-weight: bold;
+  padding-bottom:20px;
 }

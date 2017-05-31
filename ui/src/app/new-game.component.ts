@@ -43,7 +43,7 @@ export class NewGameComponent implements OnInit {
         game => this.game = game,
         error =>  this.errorMessage = <any>error
       );
-      //redirect to that game
+      //TODO: redirect to that game
   }
 
 }

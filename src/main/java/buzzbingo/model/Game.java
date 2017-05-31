@@ -13,6 +13,7 @@ public class Game implements Serializable {
   String wordbank;
   SortedSet<String> players = new TreeSet<>();
   Boolean winner = false;
+  String winnerName;
 
   public Game(){
   }
@@ -67,6 +68,10 @@ public class Game implements Serializable {
     return this;
   }
 
+  public Boolean getWinner() {
+    return winner;
+  }
+
   public Boolean hasWinner() {
     return winner;
   }
@@ -83,6 +88,16 @@ public class Game implements Serializable {
         ", wordbank='" + wordbank + '\'' +
         ", players=" + players +
         ", winner=" + winner +
+        ", winnerName='" + winnerName + '\'' +
         '}';
   }
+
+  public String getWinnerName() {
+    return winnerName;
+  }
+
+  public void setWinnerName(String winnerName) {
+    this.winnerName = winnerName;
+  }
+
 }
