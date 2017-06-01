@@ -3,6 +3,7 @@
 Build and Run (Docker)
 ```bash
 ./gradlew build
+docker-compose build
 docker-compose up
 ```
 Clean up (Docker)
