@@ -17,7 +17,6 @@ export class WordbankService {
   private wordbanksUrl = this.buzzutils.baseURL() + 'wordbank/';
 
   getWordbanks(): Observable<Wordbank[]> {
-    console.log("service")
     return this.http.get(this.wordbanksUrl)
                     .map(this.extractData)
                     .catch(this.handleError);

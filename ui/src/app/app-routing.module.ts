@@ -11,7 +11,7 @@ const routes: Routes = [
   { path: 'dashboard',  component: DashboardComponent },
   { path: 'wordbanks/:name', component: WordbankDetailComponent },
   { path: 'wordbanks',  component: WordbanksComponent },
-  { path: 'gameboard/:gameboardName',  component: GameboardComponent },
+  { path: 'gameboard/:gameName',  component: GameboardComponent },
   { path: 'newgame',  component: NewGameComponent }
 ];
 

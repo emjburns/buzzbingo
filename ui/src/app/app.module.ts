@@ -16,7 +16,9 @@ import { NewGameComponent }   from './game/new-game/new-game.component';
 import { GameService }        from './game/game.service';
 import { GameboardService }   from './gameboard/gameboard.service';
 import { WordbankService }    from './wordbank/wordbank.service';
-import { BuzzUtils }          from './buzzutils'
+import { IdentityService }    from './identity/identity.service';
+
+import { BuzzUtils }          from './buzzutils';
 
 import { AppRoutingModule }   from './app-routing.module';
 
@@ -50,6 +52,7 @@ import { MyErrorHandler } from './MyErrorHandler';
     GameService,
     GameboardService,
     BuzzUtils,
+    IdentityService,
     {provide: ErrorHandler, useClass: MyErrorHandler}
   ],
   bootstrap: [ AppComponent ]

@@ -17,8 +17,10 @@ export class GameboardService {
 
   private gameBoardUrl = this.buzzutils.baseURL() + "gameboard/"
 
-  getGameboard(gameboardName: string): Observable<Gameboard> {
-    console.log("getting gameboard " + gameboardName)
+  getGameboard(gameName: string, username: string): Observable<Gameboard> {
+    console.log("GameService: gameName: " + gameName);
+    let gameboardName: string = this.buzzutils.gameboardName(gameName, username);
+    console.log("getting gameboard " + gameboardName);
     return this.http.get(this.gameBoardUrl + gameboardName)
       .map(this.extractData)
       .catch(this.handleError);

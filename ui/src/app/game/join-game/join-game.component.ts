@@ -9,18 +9,20 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
+import { CookieService } from 'ngx-cookie';
+
 import { GameSearchService } from '../game-search/game-search.service';
+import { IdentityService } from '../../identity/identity.service';
 import { Game } from '../game'
 import { GameService } from '../game.service'
 import { BuzzUtils }    from '../../buzzutils'
 
-import { CookieService } from 'ngx-cookie';
 
 @Component({
   selector: 'join-game',
   templateUrl: './join-game.component.html',
   styleUrls: [ './join-game.component.css' ],
-  providers: [GameService]
+  providers: [GameService, IdentityService]
 })
 export class JoinGameComponent implements OnInit {
   games: Observable<Game[]>;
@@ -29,19 +31,18 @@ export class JoinGameComponent implements OnInit {
     private gameService: GameService,
     private cookieService: CookieService,
     private router: Router,
-    private buzzutils: BuzzUtils
+    private buzzutils: BuzzUtils,
+    private identityService: IdentityService
   ) {}
 
   ngOnInit(): void {
   }
 
   goToGame(gameName: string): void {
-    let username: string = this.cookieService.get(this.buzzutils.cookieKey);
-    let gameboardName: string = this.buzzutils.gameboardName(gameName, username);
-
+    let username: string = this.identityService.getID();
     this.gameService.addPlayer(gameName, username)
       .subscribe(
-        () => this.router.navigate(['/gameboard', gameboardName])
+        () => this.router.navigate(['/gameboard', gameName])
       );
   }
 

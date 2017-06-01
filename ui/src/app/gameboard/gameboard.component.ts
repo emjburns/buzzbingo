@@ -11,6 +11,8 @@ import 'rxjs/add/operator/distinctUntilChanged';
 
 import { GameService } from '../game/game.service'
 import { GameboardService } from './gameboard.service'
+import { IdentityService } from '../identity/identity.service';
+
 import { Game } from '../game/game';
 import { Square } from './square';
 import { Gameboard } from './gameboard';
@@ -19,7 +21,7 @@ import { Gameboard } from './gameboard';
   selector: 'gameboard',
   templateUrl: './gameboard.component.html',
   styleUrls: [ './gameboard.component.css' ],
-  providers: [GameService, GameboardService]
+  providers: [GameService, GameboardService, IdentityService]
 })
 export class GameboardComponent implements OnInit {
   errorMessage: string;
@@ -30,6 +32,7 @@ export class GameboardComponent implements OnInit {
   constructor(
     private gameService: GameService,
     private gameboardService: GameboardService,
+    private identityService: IdentityService,
     private route: ActivatedRoute,
     private location: Location,
     private router: Router
@@ -37,7 +40,7 @@ export class GameboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params
-      .switchMap((params: Params) => this.gameboardService.getGameboard(params['gameboardName']))
+      .switchMap((params: Params) => this.gameboardService.getGameboard(params['gameName'], this.identityService.getID()))
       .subscribe(
         gameboard => this.gameboard = gameboard,
         error =>  this.errorMessage = <any>error
@@ -49,7 +52,6 @@ export class GameboardComponent implements OnInit {
     .subscribe(
       gameboard => this.gameboard = gameboard,
       error =>  this.errorMessage = <any>error
-      // () => this.getGame()
     );
   }
 
