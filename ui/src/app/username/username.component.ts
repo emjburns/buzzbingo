@@ -3,7 +3,7 @@ import { Router }            from '@angular/router';
 import { Observable }        from 'rxjs/Observable';
 import { Subject }           from 'rxjs/Subject';
 
-import { BuzzUtils }     from './buzzutils'
+import { BuzzUtils }     from '../buzzutils'
 
 import { CookieService } from 'ngx-cookie';
 
@@ -41,6 +41,8 @@ export class UsernameComponent implements OnInit {
   }
 
   setUsername(username: string): void {
+    //TODO: tie to browser windo?
+    //TODO: tie to session number not just name picked
     if (!username) { return; }
     this.cookieService.put(this.buzzutils.cookieKey, username);
     this.playerUsername = username

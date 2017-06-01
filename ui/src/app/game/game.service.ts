@@ -1,46 +1,42 @@
 import { Injectable }       from '@angular/core';
 import { Http, Response, Headers, RequestOptions }   from '@angular/http';
 import { Observable }       from 'rxjs/Observable';
-import { Gameboard }         from './gameboard';
 import { Game }         from './game';
-import { BuzzUtils }    from './buzzutils'
+import { BuzzUtils }    from '../buzzutils';
 
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
 @Injectable()
-export class GameboardService {
+export class GameService {
   constructor (
     private http: Http,
     private buzzutils: BuzzUtils
   ) {}
 
-  private gameBoardUrl = this.buzzutils.baseURL() + "gameboard/"
+  private gameUrl = this.buzzutils.baseURL() + 'game/';
 
-  getGameboard(gameboardName: string): Observable<Gameboard> {
-    console.log("getting gameboard " + gameboardName)
-    return this.http.get(this.gameBoardUrl + gameboardName)
+  getGame(name: String): Observable<Game> {
+    return this.http.get(this.gameUrl + name)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  deleteGameboard(gamename: string, playername: string): Observable<Gameboard>{
-    return this.http.delete(this.gameBoardUrl + this.buzzutils.gameboardName(gamename, playername))
+  createGame(name: String, wordbank: string): Observable<Game> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(this.gameUrl + name, wordbank, options)
       .map(this.extractData)
       .catch(this.handleError);
   }
 
-  toggle(gamename: string, playername: string, index: number): Observable<Gameboard> {
-    return this.http.put(this.gameBoardUrl + this.buzzutils.gameboardName(gamename, playername) + "/" + index, "" )
-      .map(this.extractData)
-      .catch(this.handleError);
-  }
-
-  bingo(gamename: string, playername: string): Observable<Gameboard> {
-    console.log("so you think you have BINGO");
-    return this.http.put(this.gameBoardUrl + this.buzzutils.gameboardName(gamename, playername) + "/bingo", "" )
-      .map(this.extractData)
-      .catch(this.handleError);
+  addPlayer(gameName: string, playerName: string): Observable<Game> {
+    console.log("adding player " + playerName + " to game " + gameName)
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.put(this.gameUrl + gameName + "/players/" + playerName, "" , options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
   }
 
   private extractData(res: Response) {
@@ -61,6 +57,4 @@ export class GameboardService {
     console.error(errMsg);
     return Observable.throw(errMsg);
   }
-
-
 }

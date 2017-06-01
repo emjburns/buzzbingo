@@ -10,7 +10,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import { GameSearchService } from './game-search.service';
-import { Game } from './game'
+import { Game } from '../game'
 
 @Component({
   selector: 'game-search',

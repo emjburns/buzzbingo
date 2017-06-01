@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { Wordbank } from './wordbank';
 // import { WordbankService } from './wordbank.service';
-import { ApiWordbankService } from './api-wordbank.service'
+import { WordbankService } from './wordbank.service'
 // Observable class extensions
 import 'rxjs/add/observable/of';
 
@@ -15,7 +15,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
   selector: 'wordbank-dashboard',
   templateUrl: './wordbanks.component.html',
   styleUrls: [ './wordbanks.component.css' ],
-  providers: [ApiWordbankService]
+  providers: [WordbankService]
 })
 export class WordbanksComponent implements OnInit {
   errorMessage: string;
@@ -23,7 +23,7 @@ export class WordbanksComponent implements OnInit {
   mode = 'Observable';
 
   constructor(
-    private apiWordbankService: ApiWordbankService
+    private wordbankService: WordbankService
   ) { }
 
   ngOnInit(): void {
@@ -33,7 +33,7 @@ export class WordbanksComponent implements OnInit {
   }
 
   getWordbanks() {
-    this.apiWordbankService.getWordbanks()
+    this.wordbankService.getWordbanks()
         .subscribe(
           wordbanks => this.wordbanks = wordbanks,
           error => this.errorMessage = <any>error
@@ -43,7 +43,7 @@ export class WordbanksComponent implements OnInit {
   addWordbank(name: string, words: string) {
     let wordArray = words.split(",")
     if (!name) { return; }
-    this.apiWordbankService.create(name, wordArray)
+    this.wordbankService.create(name, wordArray)
        .subscribe(
          wordbank  => this.wordbanks.push(wordbank),
          error =>  this.errorMessage = <any>error
@@ -54,7 +54,7 @@ export class WordbanksComponent implements OnInit {
     if (!name) { return; }
 
     let wb: Wordbank;
-    this.apiWordbankService.getWordbank(name)
+    this.wordbankService.getWordbank(name)
       .subscribe(
         wordbank  => wb = wordbank,
         error =>  this.errorMessage = <any>error
@@ -67,7 +67,7 @@ export class WordbanksComponent implements OnInit {
 
   getWordbank(name: string) {
     if (!name) { return; }
-    this.apiWordbankService.getWordbank(name)
+    this.wordbankService.getWordbank(name)
       .subscribe(
         wordbank  => this.wordbanks.push(wordbank),
         error =>  this.errorMessage = <any>error

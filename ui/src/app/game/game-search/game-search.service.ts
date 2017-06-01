@@ -4,7 +4,7 @@ import { Http }       from '@angular/http';
 import 'rxjs/add/operator/map';
 import { Observable }     from 'rxjs/Observable';
 
-import { Game } from './game'
+import { Game } from '../game'
 
 @Injectable()
 export class GameSearchService {

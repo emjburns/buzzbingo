@@ -9,10 +9,10 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import { GameSearchService } from './game-search.service';
-import { Game } from './game'
-import { GameService } from './game.service'
-import { BuzzUtils }    from './buzzutils'
+import { GameSearchService } from '../game-search/game-search.service';
+import { Game } from '../game'
+import { GameService } from '../game.service'
+import { BuzzUtils }    from '../../buzzutils'
 
 import { CookieService } from 'ngx-cookie';
 

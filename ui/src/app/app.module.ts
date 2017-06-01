@@ -4,23 +4,21 @@ import { FormsModule }    from '@angular/forms';
 import { HttpModule, JsonpModule }    from '@angular/http';
 
 import { AppComponent }         from './app.component';
-import { DashboardComponent }   from './dashboard.component';
-import { GameSearchComponent }   from './game-search.component';
-import { JoinGameComponent }    from './join-game.component';
-import { GameComponent }    from './game.component';
-import { NewGameComponent }    from './new-game.component';
-import { UsernameComponent }   from './username.component';
-import { WordbankDetailComponent }      from './wordbank-detail.component';
-import { WordbanksComponent }           from './wordbanks.component';
-import { GameboardComponent }           from './gameboard.component';
+import { DashboardComponent }   from './dashboard/dashboard.component';
+import { GameSearchComponent }   from './game/game-search/game-search.component';
+import { JoinGameComponent }    from './game/join-game/join-game.component';
+import { UsernameComponent }   from './username/username.component';
+import { WordbankDetailComponent }      from './wordbank/wordbank-detail.component';
+import { WordbanksComponent }           from './wordbank/wordbanks.component';
+import { GameboardComponent }           from './gameboard/gameboard.component';
 
-
-import { GameService }          from './game.service';
-import { GameboardService }          from './gameboard.service';
-import { ApiWordbankService } from './api-wordbank.service';
+import { NewGameComponent }   from './game/new-game/new-game.component';
+import { GameService }        from './game/game.service';
+import { GameboardService }   from './gameboard/gameboard.service';
+import { WordbankService }    from './wordbank/wordbank.service';
 import { BuzzUtils }          from './buzzutils'
 
-import { AppRoutingModule }     from './app-routing.module';
+import { AppRoutingModule }   from './app-routing.module';
 
 
 import { CookieModule } from 'ngx-cookie';
@@ -43,13 +41,12 @@ import { MyErrorHandler } from './MyErrorHandler';
     WordbankDetailComponent,
     WordbanksComponent,
     JoinGameComponent,
-    GameComponent,
     NewGameComponent,
     UsernameComponent,
     GameboardComponent
   ],
   providers: [
-    ApiWordbankService,
+    WordbankService,
     GameService,
     GameboardService,
     BuzzUtils,

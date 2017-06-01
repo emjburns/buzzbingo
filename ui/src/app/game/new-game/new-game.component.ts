@@ -1,22 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Game } from './game';
-// import { WordbankService } from './wordbank.service';
-import { GameService } from './game.service'
-import { ApiWordbankService } from './api-wordbank.service'
 // Observable class extensions
 import 'rxjs/add/observable/of';
-
 // Observable operators
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 
+import { Game } from '../game';
+// import { WordbankService } from './wordbank.service';
+import { GameService } from '../game.service'
+import { WordbankService } from '../../wordbank/wordbank.service'
+
 @Component({
   selector: 'new-game',
   templateUrl: './new-game.component.html',
   styleUrls: [ './new-game.component.css' ],
-  providers: [GameService, ApiWordbankService]
+  providers: [GameService, WordbankService]
 })
 export class NewGameComponent implements OnInit {
   errorMessage: string;
@@ -27,7 +27,7 @@ export class NewGameComponent implements OnInit {
 
   constructor(
     private gameService: GameService,
-    private apiWordbankService: ApiWordbankService
+    private wordbankService: WordbankService
   ) { }
 
   ngOnInit(): void {
@@ -35,7 +35,7 @@ export class NewGameComponent implements OnInit {
   }
 
   getWordbankNames() {
-    this.apiWordbankService.getWordbankNames()
+    this.wordbankService.getWordbankNames()
         .subscribe(
           wordbanks => this.wordbanks = wordbanks,
           error => this.errorMessage = <any>error

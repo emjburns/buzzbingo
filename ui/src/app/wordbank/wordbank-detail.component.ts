@@ -4,7 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Location }               from '@angular/common';
 
 import { Wordbank }        from './wordbank';
-import { ApiWordbankService} from './api-wordbank.service';
+import { WordbankService} from './wordbank.service';
 // Observable class extensions
 import 'rxjs/add/observable/of';
 
@@ -23,7 +23,7 @@ export class WordbankDetailComponent implements OnInit {
   mode = 'Observable';
 
   constructor(
-    private apiWordbankService: ApiWordbankService,
+    private wordbankService: WordbankService,
     private route: ActivatedRoute,
     private location: Location,
     private router: Router
@@ -31,24 +31,24 @@ export class WordbankDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params
-      .switchMap((params: Params) => this.apiWordbankService.getWordbank(params['name']))
+      .switchMap((params: Params) => this.wordbankService.getWordbank(params['name']))
       .subscribe(wordbank => this.wordbank = wordbank);
   }
 
   deleteWord(name: string, word: string) {
     let words: string[] = [word]
-    this.apiWordbankService.deleteWord(name, words)
+    this.wordbankService.deleteWord(name, words)
       .subscribe(wordbank => this.wordbank = wordbank);
   }
 
   addWord(name: string, word: string) {
     let words: string[] = word.split(",")
-    this.apiWordbankService.addWord(name, words)
+    this.wordbankService.addWord(name, words)
       .subscribe(wordbank => this.wordbank = wordbank);
   }
 
    deleteWordbank(name: string) {
-    this.apiWordbankService.delete(name)
+    this.wordbankService.delete(name)
         .subscribe(
           // must delete wordbank
         );

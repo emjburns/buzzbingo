@@ -1,11 +1,10 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent }   from './dashboard.component';
-import { WordbanksComponent }   from './wordbanks.component';
-import { WordbankDetailComponent }   from './wordbank-detail.component';
-import { GameComponent }        from './game.component';
-import { GameboardComponent }        from './gameboard.component';
-import { NewGameComponent }       from './new-game.component';
+import { DashboardComponent }   from './dashboard/dashboard.component';
+import { WordbanksComponent }   from './wordbank/wordbanks.component';
+import { WordbankDetailComponent }   from './wordbank/wordbank-detail.component';
+import { GameboardComponent }        from './gameboard/gameboard.component';
+import { NewGameComponent }       from './game/new-game/new-game.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -13,7 +12,6 @@ const routes: Routes = [
   { path: 'wordbanks/:name', component: WordbankDetailComponent },
   { path: 'wordbanks',  component: WordbanksComponent },
   { path: 'gameboard/:gameboardName',  component: GameboardComponent },
-  { path: 'game',  component: GameComponent },
   { path: 'newgame',  component: NewGameComponent }
 ];
 

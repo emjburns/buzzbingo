@@ -1,12 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location }               from '@angular/common';
-
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { GameService } from './game.service'
-import { GameboardService } from './gameboard.service'
-import { Game } from './game';
-import { Square } from './square';
-import { Gameboard } from './gameboard';
 // Observable class extensions
 import 'rxjs/add/observable/of';
 
@@ -14,6 +8,12 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
+
+import { GameService } from '../game/game.service'
+import { GameboardService } from './gameboard.service'
+import { Game } from '../game/game';
+import { Square } from './square';
+import { Gameboard } from './gameboard';
 
 @Component({
   selector: 'gameboard',
