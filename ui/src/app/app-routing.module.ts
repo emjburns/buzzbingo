@@ -14,6 +14,7 @@ const routes: Routes = [
   { path: 'wordbanks',  component: WordbanksComponent },
   { path: 'gameboard/:gameName',  component: GameboardComponent },
   { path: 'newgame',  component: NewGameComponent },
+  // Must be last, catches all the rest
   { path: '**',  component: NotFoundComponent },
 ];
 

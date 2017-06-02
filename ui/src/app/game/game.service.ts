@@ -5,6 +5,7 @@ import { Game }         from './game';
 import { BuzzUtils }    from '../buzzutils';
 
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/observable/throw';
 import 'rxjs/add/operator/map';
 
 @Injectable()
@@ -50,7 +51,20 @@ export class GameService {
     if (error instanceof Response) {
       const body = error.json() || '';
       const err = body.error || JSON.stringify(body);
-      errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+      switch(+`${error.status}`){
+        case 404: {
+          errMsg = "This game does not exist. Try creating a game!";
+          break;
+        }
+        case 403: {
+          errMsg = "You can't join this game, it's over.";
+          break;
+        }
+        default: {
+          errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
+          break;
+        }
+      }
     } else {
       errMsg = error.message ? error.message : error.toString();
     }

@@ -12,6 +12,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
 import { GameService } from '../game/game.service'
 import { GameboardService } from './gameboard.service'
 import { IdentityService } from '../identity/identity.service';
+import { AlertService }     from '../alert/alert.service';
 
 import { Game } from '../game/game';
 import { Square } from './square';
@@ -35,7 +36,8 @@ export class GameboardComponent implements OnInit {
     private identityService: IdentityService,
     private route: ActivatedRoute,
     private location: Location,
-    private router: Router
+    private router: Router,
+    private alertService: AlertService,
   ) {}
 
   ngOnInit(): void {
@@ -43,7 +45,7 @@ export class GameboardComponent implements OnInit {
       .switchMap((params: Params) => this.gameboardService.getGameboard(params['gameName'], this.identityService.getID()))
       .subscribe(
         gameboard => this.gameboard = gameboard,
-        error =>  this.errorMessage = <any>error
+        error =>  this.alertService.error(error)
       );
   }
 
@@ -51,7 +53,7 @@ export class GameboardComponent implements OnInit {
     this.gameboardService.toggle(this.gameboard.gameName, this.gameboard.playerName, index)
     .subscribe(
       gameboard => this.gameboard = gameboard,
-      error =>  this.errorMessage = <any>error
+      error =>  this.alertService.error(error)
     );
   }
 
@@ -59,7 +61,7 @@ export class GameboardComponent implements OnInit {
     this.gameboardService.bingo(this.gameboard.gameName, this.gameboard.playerName)
     .subscribe(
       gameboard => this.gameboard = gameboard,
-      error =>  this.errorMessage = <any>error
+      error =>  this.alertService.error(error)
     );
   }
 
@@ -69,7 +71,7 @@ export class GameboardComponent implements OnInit {
     this.gameService.getGame(this.gameboard.gameName)
       .subscribe(
         game => this.game = game,
-        error => this.errorMessage = <any>error
+        error => this.alertService.error(error)
       )
   }
 }

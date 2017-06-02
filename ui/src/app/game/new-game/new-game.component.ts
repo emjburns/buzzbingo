@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router }            from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 // Observable class extensions
 import 'rxjs/add/observable/of';
@@ -13,6 +13,7 @@ import { Game } from '../game';
 import { GameService } from '../game.service'
 import { WordbankService } from '../../wordbank/wordbank.service'
 import { IdentityService } from '../../identity/identity.service';
+import { AlertService }    from '../../alert/alert.service';
 
 @Component({
   selector: 'new-game',
@@ -30,8 +31,10 @@ export class NewGameComponent implements OnInit {
   constructor(
     private gameService: GameService,
     private wordbankService: WordbankService,
+    private route: ActivatedRoute,
     private router: Router,
-    private identityService: IdentityService
+    private identityService: IdentityService,
+    private alertService: AlertService,
   ) { }
 
   ngOnInit(): void {
@@ -51,7 +54,7 @@ export class NewGameComponent implements OnInit {
     this.gameService.createGame(name, wordbank)
       .subscribe(
         game => this.game = game,
-        error =>  this.errorMessage = <any>error,
+        error =>  this.alertService.error(error),
         () => this.joinGameandNavigate(name)
       );
   }

@@ -13,15 +13,17 @@ import { WordbankDetailComponent }      from './wordbank/wordbank-detail.compone
 import { WordbanksComponent }           from './wordbank/wordbanks.component';
 import { GameboardComponent }           from './gameboard/gameboard.component';
 import { NotFoundComponent }            from './not-found/not-found.component';
+import { AlertComponent }               from './alert/alert.component';
 
 import { NewGameComponent }   from './game/new-game/new-game.component';
 import { GameService }        from './game/game.service';
 import { GameboardService }   from './gameboard/gameboard.service';
 import { WordbankService }    from './wordbank/wordbank.service';
 import { IdentityService }    from './identity/identity.service';
+import { AlertService }       from './alert/alert.service';
 
 import { BuzzUtils }          from './buzzutils';
-import { MyErrorHandler } from './MyErrorHandler';
+import { MyErrorHandler }     from './MyErrorHandler';
 
 import { AppRoutingModule }   from './app-routing.module';
 
@@ -46,7 +48,8 @@ import { AppRoutingModule }   from './app-routing.module';
     NewGameComponent,
     UsernameComponent,
     GameboardComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    AlertComponent
   ],
   providers: [
     WordbankService,
@@ -54,6 +57,7 @@ import { AppRoutingModule }   from './app-routing.module';
     GameboardService,
     BuzzUtils,
     IdentityService,
+    AlertService,
     {provide: ErrorHandler, useClass: MyErrorHandler}
   ],
   bootstrap: [ AppComponent ]
