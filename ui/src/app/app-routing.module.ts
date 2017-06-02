@@ -5,6 +5,7 @@ import { WordbanksComponent }   from './wordbank/wordbanks.component';
 import { WordbankDetailComponent }   from './wordbank/wordbank-detail.component';
 import { GameboardComponent }        from './gameboard/gameboard.component';
 import { NewGameComponent }       from './game/new-game/new-game.component';
+import { NotFoundComponent }       from './not-found/not-found.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -12,7 +13,8 @@ const routes: Routes = [
   { path: 'wordbanks/:name', component: WordbankDetailComponent },
   { path: 'wordbanks',  component: WordbanksComponent },
   { path: 'gameboard/:gameName',  component: GameboardComponent },
-  { path: 'newgame',  component: NewGameComponent }
+  { path: 'newgame',  component: NewGameComponent },
+  { path: '**',  component: NotFoundComponent },
 ];
 
 @NgModule({
