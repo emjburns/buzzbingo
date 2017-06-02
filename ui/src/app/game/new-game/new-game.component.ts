@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router }            from '@angular/router';
 
 // Observable class extensions
 import 'rxjs/add/observable/of';
@@ -11,12 +12,13 @@ import { Game } from '../game';
 // import { WordbankService } from './wordbank.service';
 import { GameService } from '../game.service'
 import { WordbankService } from '../../wordbank/wordbank.service'
+import { IdentityService } from '../../identity/identity.service';
 
 @Component({
   selector: 'new-game',
   templateUrl: './new-game.component.html',
   styleUrls: [ './new-game.component.css' ],
-  providers: [GameService, WordbankService]
+  providers: [GameService, WordbankService, IdentityService]
 })
 export class NewGameComponent implements OnInit {
   errorMessage: string;
@@ -27,7 +29,9 @@ export class NewGameComponent implements OnInit {
 
   constructor(
     private gameService: GameService,
-    private wordbankService: WordbankService
+    private wordbankService: WordbankService,
+    private router: Router,
+    private identityService: IdentityService
   ) { }
 
   ngOnInit(): void {
@@ -42,14 +46,22 @@ export class NewGameComponent implements OnInit {
         );
   }
 
-  createGame(name: string, wordbank: string) {
+  createGame(name: string, wordbank: string): void {
     if (!name) { return; }
     this.gameService.createGame(name, wordbank)
       .subscribe(
         game => this.game = game,
-        error =>  this.errorMessage = <any>error
+        error =>  this.errorMessage = <any>error,
+        () => this.joinGameandNavigate(name)
       );
-      //TODO: redirect to that game
+  }
+
+  joinGameandNavigate(name: string): void {
+    let username: string = this.identityService.getID();
+    this.gameService.addPlayer(name, username)
+      .subscribe(
+        () => this.router.navigate(['/gameboard', name])
+      );
   }
 
 }
