@@ -8,17 +8,20 @@
     <h1> You lost... better luck next time </h1>
   </div>
 
+<!-- greyed out board for game over -->
+  <div *ngIf="gameboard.gameover"  class="grid">
+    <div *ngFor="let square of gameboard.board"
+      [class]="square.marked? 'go-marked col-1-5' : 'go-module col-1-5'">
+        <h5> {{ square.value }} </h5>
+    </div>
+  </div>
 
-  <div class="grid">
-    <div *ngFor="let square of gameboard.board" class="col-1-5" >
-      <div *ngIf="gameboard.gameover" [class]="square.marked? 'go-marked' : 'go-module'">
-        <h4> {{ square.value }} </h4>
-      </div>
-      <div *ngIf="!gameboard.gameover"
-      [class]="square.marked? 'marked' : 'module'"
-      (click)="toggle(square.index); square.marked = !square.marked">
-        <h4> {{ square.value }} </h4>
-      </div>
+
+  <div *ngIf="!gameboard.gameover" class="grid">
+    <div *ngFor="let square of gameboard.board"
+    [class]="square.marked? 'marked col-1-5' : 'module col-1-5'"
+    (click)="toggle(square.index); square.marked = !square.marked" >
+        <h5> {{ square.value }} </h5>
     </div>
   </div>
 

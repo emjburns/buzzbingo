@@ -1,9 +1,11 @@
 [class*='col-'] {
   float: left;
-  padding-right: 20px;
-  padding-bottom: 20px;
+  /*padding-right: 20px;
+  padding-bottom: 20px;*/
+  padding: 10px;
 }
 [class*='col-']:last-of-type {
+  clear: right;
   padding-right: 0;
 }
 a {
@@ -22,19 +24,27 @@ h4 {
 }
 .grid {
   margin: 0;
+  display: table;
+  text-align: center;
 }
 .col-1-5 {
   width: 20%;
+  height: 120px;
 }
 .module {
   padding: 20px;
   text-align: center;
+  vertical-align: middle;
   color: black;
   max-height: 120px;
-  min-width: 120px;
   max-width: 200px;
+  display: table-cell;
+
   background-color: #ffcc00;
-  border-radius: 2px;
+  border-style: solid;
+  border-color: #A9A9A9;
+  border-width: thin;
+  word-wrap: break-word;
 }
 .module:hover {
   background-color: #ffeb99;
@@ -50,6 +60,11 @@ h4 {
   max-width: 200px;
   background-color: black;
   border-radius: 2px;
+
+  border-style: solid;
+  border-color: #A9A9A9;
+  border-width: thin;
+  word-wrap: break-word;
 }
 .marked:hover {
   background-color: #4D5656;
@@ -65,7 +80,11 @@ h4 {
   max-height: 120px;
   min-width: 120px;
   max-width: 200px;
-  border-radius: 2px;
+
+  border-style: solid;
+  border-color: #A9A9A9;
+  border-width: thin;
+  word-wrap: break-word;
 }
 .go-module {
   background-color: #BDBDBD;
@@ -75,7 +94,11 @@ h4 {
   max-height: 120px;
   min-width: 120px;
   max-width: 200px;
-  border-radius: 2px;
+
+  border-style: solid;
+  border-color: #A9A9A9;
+  border-width: thin;
+  word-wrap: break-word;
 }
 .grid-pad {
   padding: 10px 0;
@@ -122,6 +145,7 @@ button:disabled {
   display:block;
   width: 200px;
   text-align: center;
+  clear: both;
 }
 .winner {
   text-align: center;
