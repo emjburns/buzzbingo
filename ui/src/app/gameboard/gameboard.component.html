@@ -11,7 +11,7 @@
 <!-- greyed out board for game over -->
   <div *ngIf="gameboard.gameover"  class="grid">
     <div *ngFor="let square of gameboard.board"
-      [class]="square.marked? 'go-marked col-1-5' : 'go-module col-1-5'">
+      [class]="square.marked? 'go-marked col-1-5 module' : 'go-unmarked col-1-5 module'">
         <h5> {{ square.value }} </h5>
     </div>
   </div>
@@ -19,7 +19,7 @@
 
   <div *ngIf="!gameboard.gameover" class="grid">
     <div *ngFor="let square of gameboard.board"
-    [class]="square.marked? 'marked col-1-5' : 'module col-1-5'"
+    [class]="square.marked? 'marked col-1-5 module' : 'unmarked module col-1-5'"
     (click)="toggle(square.index); square.marked = !square.marked" >
         <h5> {{ square.value }} </h5>
     </div>

@@ -13,9 +13,16 @@ img {
   max-width: 40px;
   max-height: 30px;
 }
-/*.container {
-  padding-top: 150px;
-}*/
+.container {
+  /*padding-top: 150px;*/
+}
+
+@media (max-width: 991px) {
+  .container {
+    padding-top: 75px;
+  }
+}
+
 /*
 nav a {
   padding: 5px 10px;
