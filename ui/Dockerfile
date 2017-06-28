@@ -1,11 +1,10 @@
 FROM node:alpine
 MAINTAINER emjeburns@gmail.com
 
-RUN mkdir -p /usr/src/app
-WORKDIR /usr/src/app
-COPY package.json /usr/src/app
-RUN npm install
-COPY . /usr/src/app
-# EXPOSE 3000
-EXPOSE 4200
+WORKDIR /src
+COPY package.json .
+RUN npm i
+
+COPY . .
+EXPOSE 3000
 CMD ["npm", "start"]

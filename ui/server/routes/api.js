@@ -3,7 +3,7 @@ var router = express.Router();
 var request = require('request');
 var bodyParser = require("body-parser");
 
-var apiHost = process.env.API_SERVICE_HOST || 'localhost';
+var apiHost = process.env.API_SERVICE_HOST || '127.0.0.1';
 var apiPort = process.env.API_SERVICE_PORT || '8080';
 const APIURL = "http://" + apiHost + ":" + apiPort + "/v1";
 console.log("API SERVER: " +APIURL);
