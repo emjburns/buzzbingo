@@ -15,6 +15,14 @@ app.use(express.static(path.join(__dirname, 'dist')));
 // views needs to redirect to dist
 app.set('views', path.join(__dirname, 'dist'));
 
+
+app.use('/api', function (req, res, next) {
+  console.log('Request URL:', req.originalUrl)
+  next()
+}, function (req, res, next) {
+  console.log('Request Type:', req.method)
+  next()
+})
 app.use('/api', api);
 app.use('/*', (req, res) => {
   // Sends all other traffic directly to angular for deep-link routing

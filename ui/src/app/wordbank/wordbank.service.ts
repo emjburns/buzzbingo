@@ -29,7 +29,7 @@ export class WordbankService {
   }
 
   getWordbank(name: String): Observable<Wordbank> {
-    return this.http.get(this.wordbanksUrl + "/" + name)
+    return this.http.get(this.wordbanksUrl + name)
       .map(this.extractData)
       .catch(this.handleError);
   }

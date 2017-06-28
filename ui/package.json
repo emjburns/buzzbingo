@@ -7,6 +7,8 @@
     "oldstart": "ng serve",
     "start": "node ./server/bin/www",
     "build": "ng build",
+    "buildprod": "ng build --aot --prod",
+    "clean": "del-cli dist && del-cli 'src/app/**/*.js' && del-cli 'src/app/**/*.ngfactory.ts' && del-cli 'src/app/**/*.js.map' && del-cli 'src/app/**/*.shim.ts' && del-cli 'src/app/**/*.ngsummary.json' && del-cli 'src/app/**/*.ngstyle.ts'  ",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -26,12 +28,14 @@
     "angular2-uuid": "^1.1.1",
     "body-parser": "^1.17.2",
     "core-js": "^2.4.1",
+    "del-cli": "^1.0.0",
     "express": "^4.15.3",
     "html": "^1.0.0",
     "jade": "^1.11.0",
     "morgan": "^1.8.2",
     "ngx-bootstrap": "^1.7.1",
     "ngx-cookie": "^1.0.0",
+    "request": "^2.81.0",
     "rxjs": "^5.1.0",
     "serve-favicon": "^2.4.3",
     "zone.js": "^0.8.4"

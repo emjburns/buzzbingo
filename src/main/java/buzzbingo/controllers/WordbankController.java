@@ -74,6 +74,9 @@ public class WordbankController extends ApiBaseController {
     return wordbank;
   }
 
+  //post with body
+  //{"words": ["a", " b", " c"]}
+  //curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{"words": ["a", " b", " c"]}' 'http://localhost:8080/v1/wordbank/testing'
   @RequestMapping(value = "/{name}", method = RequestMethod.POST)
   public Wordbank createWordbank(@PathVariable String name, @RequestBody Map<String, Set<String>> words) throws DuplicateWordbankException {
     if (wordbankExists(name)) throw new DuplicateWordbankException();
