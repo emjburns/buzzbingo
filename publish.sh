@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Must be logged into docker
-docker login
+#$ docker login
 TAG="$(date +"%Y-%m-%d_%H-%M-%S")"
 
 buildAPI() {
@@ -23,11 +23,19 @@ pushUI() {
     docker push emjburns/buzzbingo-ui:$TAG
 }
 
+pushLatest(){
+    docker tag emjburns/buzzbingo-ui:$TAG emjburns/buzzbingo-ui:latest
+    docker push emjburns/buzzbingo-ui:latest
+
+    docker tag emjburns/buzzbingo-api:$TAG emjburns/buzzbingo-api:latest
+    docker push emjburns/buzzbingo-api:latest
+}
 
 buildAPI
 buildUI
 pushAPI
 pushUI
+pushLatest
 
 
 

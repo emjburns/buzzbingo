@@ -56,10 +56,12 @@ public class Application {
     JedisConnectionFactory jedisConnectionFactory() {
         JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
         String DOCKER = System.getenv("DOCKER");
-        String K8 = System.getenv("K8");
+//        String K8 = System.getenv("K8");
+        String REDIS_SERVICE_HOST = System.getenv("REDIS_SERVICE_HOST");
 
-        if (K8 != null && K8 == "true"){
-            String host = System.getenv("REDIS_SERVICE_HOST");
+
+        if (REDIS_SERVICE_HOST != null){
+            String host = REDIS_SERVICE_HOST;
             jedisConnectionFactory.setHostName(host);
         } else if (DOCKER != null && DOCKER == "true") {
             jedisConnectionFactory.setHostName("redis");
