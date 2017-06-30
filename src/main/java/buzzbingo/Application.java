@@ -59,16 +59,17 @@ public class Application {
 //        String K8 = System.getenv("K8");
         String REDIS_SERVICE_HOST = System.getenv("REDIS_SERVICE_HOST");
 
-
-        if (REDIS_SERVICE_HOST != null){
+        if (DOCKER != null && DOCKER.equals("true")) {
+            jedisConnectionFactory.setHostName("redis");
+        } else if (REDIS_SERVICE_HOST != null){
             String host = REDIS_SERVICE_HOST;
             jedisConnectionFactory.setHostName(host);
-        } else if (DOCKER != null && DOCKER == "true") {
-            jedisConnectionFactory.setHostName("redis");
         } else {
             jedisConnectionFactory.setHostName("localhost");
         }
         jedisConnectionFactory.setPort(6379);
+
+        System.out.println("Database: " + jedisConnectionFactory.getHostName() + ":" + jedisConnectionFactory.getPort());
         return jedisConnectionFactory;
     }
 
@@ -96,7 +97,6 @@ public class Application {
 
     @Bean
     public Jackson2ObjectMapperBuilder jacksonBuilder() {
-        System.out.println("Jackson config");
         Jackson2ObjectMapperBuilder b = new Jackson2ObjectMapperBuilder();
         b.indentOutput(true)
             .dateFormat(new SimpleDateFormat("yyyy-MM-dd"))
