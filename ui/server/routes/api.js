@@ -3,8 +3,8 @@ var router = express.Router();
 var request = require('request');
 var bodyParser = require("body-parser");
 
-var apiHost = process.env.API_SERVICE_HOST || '127.0.0.1';
-var apiPort = process.env.API_SERVICE_PORT || '8080';
+var apiHost = process.env.BUZZBINGO_API_SERVICE_HOST || '127.0.0.1';
+var apiPort = process.env.BUZZBINGO_API_SERVICE_PORT || '8080';
 const APIURL = "http://" + apiHost + ":" + apiPort + "/v1";
 console.log("API SERVER: " +APIURL);
 
@@ -24,6 +24,7 @@ router.use(function (req, res, next) {
   options.url = APIURL + req.originalUrl.slice(4);
   options.method = req.method;
   options.body = req.body;
+  console.log(options.method)
   next();
 })
 router.use(function (req, res, next) {

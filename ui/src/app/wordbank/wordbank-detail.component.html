@@ -4,6 +4,11 @@
   <!-- <div>
     {{wordbank.words}}
   </div> -->
+  <button (click)="goBack()">Back</button>
+  <button class="delete"
+  (click)="deleteWordbank(wordbank.name)">Delete Wordbank</button>
+
+  
   <ul class="heroes">
     <li *ngFor="let word of wordbank.words">
       <span>{{word}}</span>
@@ -18,7 +23,4 @@
   <div></div>
 
 
-  <button (click)="goBack()">Back</button>
-  <button class="delete"
-    (click)="deleteWordbank(wordbank.name)">Delete Wordbank</button>
 </div>

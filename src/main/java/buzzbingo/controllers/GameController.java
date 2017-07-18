@@ -38,11 +38,13 @@ public class GameController extends ApiBaseController{
 
   @RequestMapping(value = "/", method = RequestMethod.GET)
   public Map<Object, Object> getGames() {
+    System.out.println("getting all games");
     return gameRepository.findAllGames();
   }
 
   @RequestMapping(value = "/{gameName}", method = RequestMethod.GET)
   public Game getGame(@PathVariable String gameName) throws GameNotFoundException {
+    System.out.println("Getting game " + gameName);
     Game game = gameRepository.findGame(gameName);
     if (game == null) throw new GameNotFoundException();
     return game;
@@ -50,10 +52,11 @@ public class GameController extends ApiBaseController{
 
   //TODO: this should support a body of {wordbank:"mywordbank"} not just a string
   @RequestMapping(value = "/{gameName}", method = RequestMethod.POST)
-  public Game createGame(@PathVariable String gameName, @RequestBody String wordbank) throws WordbankNotFoundException, DuplicateGameException {
+  public Game createGame(@PathVariable String gameName, @RequestBody Map<String, String> wordbank) throws WordbankNotFoundException, DuplicateGameException {
     System.out.println("GAME: " + gameName + ", WORDBANK: " + wordbank);
+    String wb = wordbank.get("wordbank");
 
-    if (wordbankRepository.findWordbank(wordbank) == null) {
+    if (wordbankRepository.findWordbank(wb) == null) {
       throw new WordbankNotFoundException();
     }
     if (gameRepository.findGame(gameName) != null) {
@@ -61,7 +64,7 @@ public class GameController extends ApiBaseController{
     }
 
     Game game = new Game();
-    game.setName(gameName).setWordbank(wordbank);
+    game.setName(gameName).setWordbank(wb);
     gameRepository.saveGame(game);
 
     return game;
@@ -69,6 +72,7 @@ public class GameController extends ApiBaseController{
 
   @RequestMapping(value = "/{gameName}", method = RequestMethod.PUT)
   public Game updateGame(@PathVariable String gameName, @RequestBody Game game) throws GameNotFoundException, WordbankNotFoundException {
+    System.out.println("Updating game " + gameName);
     // Update entire object to new object
     if (!gameExists(gameName)) throw new GameNotFoundException();
     if (!wordbankExists(game.getWordbank())) throw new WordbankNotFoundException();
@@ -78,6 +82,7 @@ public class GameController extends ApiBaseController{
 
   @RequestMapping(value = "/{gameName}/wordbank", method = RequestMethod.PUT)
   public Game updateGameWordbank(@PathVariable String gameName, @RequestBody String wordbank) throws GameNotFoundException, WordbankNotFoundException {
+    System.out.println("Updating game wordbank" + gameName);
     // Update entire object to new object
     Game game = gameRepository.findGame(gameName);
     if (game == null) throw new GameNotFoundException();
@@ -89,6 +94,7 @@ public class GameController extends ApiBaseController{
 
   @RequestMapping(value = "/{gameName}", method = RequestMethod.DELETE)
   public void deleteGame(@PathVariable String gameName) throws GameNotFoundException {
+    System.out.println("deleting game " + gameName);
     if (!gameExists(gameName)) throw new GameNotFoundException();
     Game game = gameRepository.findGame(gameName);
     for ( String player : game.getPlayers()){
@@ -102,6 +108,7 @@ public class GameController extends ApiBaseController{
 
   @RequestMapping(value = "/{gameName}/players", method = RequestMethod.GET)
   public SortedSet<String> getPlayers(@PathVariable String gameName, @RequestBody List<String> players) throws GameNotFoundException {
+    System.out.println("getting players for " + gameName);
     Game game = gameRepository.findGame(gameName);
     if (game == null) throw new GameNotFoundException();
     return game.getPlayers();
@@ -109,6 +116,7 @@ public class GameController extends ApiBaseController{
 
   @RequestMapping(value = "/{gameName}/players", method = RequestMethod.PUT)
   public Game addPlayers(@PathVariable String gameName, @RequestBody List<String> players) throws GameNotFoundException, GameNotInPlayException {
+    System.out.println("adding players for " + gameName);
     Game game = gameRepository.findGame(gameName);
     if (game == null) throw new GameNotFoundException();
     if (game.hasWinner()) throw new GameNotInPlayException();
@@ -136,6 +144,7 @@ public class GameController extends ApiBaseController{
 
   @RequestMapping(value = "/{gameName}/players/{playerName}", method = RequestMethod.PUT)
   public Game addPlayer(@PathVariable String gameName, @PathVariable String playerName) throws GameNotFoundException, GameNotInPlayException {
+    System.out.println("adding player for " + gameName);
     ArrayList<String> player = new ArrayList<String>();
     player.add(playerName);
     return addPlayers(gameName, player);
@@ -143,6 +152,7 @@ public class GameController extends ApiBaseController{
 
   @RequestMapping(value = "/{gameName}/players", method = RequestMethod.DELETE)
   public Game removePlayers(@PathVariable String gameName, @RequestBody List<String> players) throws GameNotFoundException {
+    System.out.println("deleting players for " + gameName);
     Game game = gameRepository.findGame(gameName);
     if (game == null) throw new GameNotFoundException();
     game.removePlayers(players);
@@ -156,6 +166,7 @@ public class GameController extends ApiBaseController{
 
   @RequestMapping(value = "/{gameName}/players/{playerName}", method = RequestMethod.DELETE)
   public Game removePlayer(@PathVariable String gameName, @PathVariable String playerName) throws GameNotFoundException {
+    System.out.println("deleting player for " + gameName);
     ArrayList<String> player = new ArrayList<String>();
     player.add(playerName);
     return removePlayers(gameName, player);

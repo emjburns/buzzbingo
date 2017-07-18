@@ -56,8 +56,7 @@ public class Application {
     JedisConnectionFactory jedisConnectionFactory() {
         JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
         String DOCKER = System.getenv("DOCKER");
-//        String K8 = System.getenv("K8");
-        String REDIS_SERVICE_HOST = System.getenv("REDIS_SERVICE_HOST");
+        String REDIS_SERVICE_HOST = System.getenv("BUZZBINGO_REDIS_SERVICE_HOST");
 
         if (DOCKER != null && DOCKER.equals("true")) {
             jedisConnectionFactory.setHostName("redis");

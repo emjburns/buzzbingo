@@ -1,21 +1,23 @@
 apiVersion: extensions/v1beta1
-kind: Deployment
+kind: ReplicaSet
 metadata:
-  creationTimestamp: null
+  name: buzzbingo-api-v000
+  namespace: buzzbingo
   labels:
-    io.kompose.service: api
     app: buzzbingo
     stack: api
     version: v000
-  name: buzzbingo-api-v000
+    io.kompose.service: api
 spec:
   replicas: 1
-  strategy: {}
+  selector:
+      matchLabels:
+        replication-controller: buzzbingo-api-v000
   template:
     metadata:
-      creationTimestamp: null
       labels:
         io.kompose.service: api
+        replication-controller: buzzbingo-api-v000
     spec:
       containers:
       - image: emjburns/buzzbingo-api:latest
@@ -26,4 +28,3 @@ spec:
         - containerPort: 8080
         resources: {}
       restartPolicy: Always
-status: {}

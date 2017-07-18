@@ -10,12 +10,13 @@ import 'rxjs/add/operator/map';
 
 @Injectable()
 export class GameService {
+  private gameUrl = this.buzzutils.baseURL() + 'game/';
+
   constructor (
     private http: Http,
     private buzzutils: BuzzUtils
   ) {}
 
-  private gameUrl = this.buzzutils.baseURL() + 'game/';
 
   getGame(name: String): Observable<Game> {
     return this.http.get(this.gameUrl + name)
@@ -23,12 +24,13 @@ export class GameService {
       .catch(this.handleError);
   }
 
-  createGame(name: String, wordbank: string): Observable<Game> {
+  createGame(gameName: String, wordbank: string): Observable<Game> {
+    console.log("Creating new game");
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
-    return this.http.post(this.gameUrl + name, wordbank, options)
-      .map(this.extractData)
-      .catch(this.handleError);
+    return this.http.post(this.gameUrl + gameName, {wordbank}, options)
+                    .map(this.extractData)
+                    .catch(this.handleError);
   }
 
   addPlayer(gameName: string, playerName: string): Observable<Game> {
@@ -42,7 +44,7 @@ export class GameService {
 
   private extractData(res: Response) {
     let body = res.json();
-    console.log(body)
+    console.log("<<<< requ body: " + body);
     return body || { };
   }
   private handleError (error: Response | any) {

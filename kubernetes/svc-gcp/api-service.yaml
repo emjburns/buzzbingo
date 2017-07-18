@@ -4,15 +4,18 @@ metadata:
   namespace: buzzbingo
   creationTimestamp: null
   labels:
-    io.kompose.service: ui
-  name: ui
+    io.kompose.service: api
+    app: buzzbingo
+    stack: api
+  name: buzzbingo-api
+
 spec:
   ports:
-  - name: "ui"
+  - name: "api"
     port: 80
-    targetPort: 3000
+    targetPort: 8080
   selector:
-    io.kompose.service: ui
+    io.kompose.service: api
   type: LoadBalancer
 status:
   loadBalancer: {}

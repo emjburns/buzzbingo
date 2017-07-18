@@ -5,7 +5,10 @@ metadata:
   creationTimestamp: null
   labels:
     io.kompose.service: redis
-  name: redis
+    app: buzzbingo
+    stack: redis
+  name: buzzbingo-redis
+
 spec:
   ports:
   - name: "redis"

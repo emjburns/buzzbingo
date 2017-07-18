@@ -50,7 +50,9 @@ export class NewGameComponent implements OnInit {
   }
 
   createGame(name: string, wordbank: string): void {
+    console.log("creating game");
     if (!name) { return; }
+    console.log("name: " + name);
     this.gameService.createGame(name, wordbank)
       .subscribe(
         game => this.game = game,
@@ -60,6 +62,7 @@ export class NewGameComponent implements OnInit {
   }
 
   joinGameandNavigate(name: string): void {
+    console.log("navigating to game");
     let username: string = this.identityService.getID();
     this.gameService.addPlayer(name, username)
       .subscribe(
