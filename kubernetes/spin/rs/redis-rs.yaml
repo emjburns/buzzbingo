@@ -1,28 +1,26 @@
 apiVersion: extensions/v1beta1
-kind: Deployment
+kind: ReplicaSet
 metadata:
+  name: buzzbingo-redis-v000
   namespace: buzzbingo
-  creationTimestamp: null
   labels:
-    io.kompose.service: redis
     app: buzzbingo
     stack: redis
     version: v000
-  name: buzzbingo-redis-v000
 spec:
   replicas: 1
-  strategy: {}
+  selector:
+    matchLabels:
+      replication-controller: buzzbingo-redis-v000
   template:
     metadata:
-      creationTimestamp: null
       labels:
-        io.kompose.service: redis
+        replication-controller: buzzbingo-redis-v000
+        load-balancer-buzzbingo-redis: "true"
     spec:
       containers:
       - image: redis
         name: redis
         ports:
         - containerPort: 6379
-        resources: {}
       restartPolicy: Always
-status: {}

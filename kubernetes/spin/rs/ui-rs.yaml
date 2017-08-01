@@ -7,7 +7,6 @@ metadata:
     app: buzzbingo
     stack: ui
     version: v000
-    io.kompose.service: ui
 spec:
   replicas: 1
   selector:
@@ -16,8 +15,8 @@ spec:
   template:
     metadata:
       labels:
-        io.kompose.service: ui
         replication-controller: buzzbingo-ui-v000
+        load-balancer-buzzbingo-ui: "true"
     spec:
       containers:
       - image: emjburns/buzzbingo-ui:latest
@@ -25,5 +24,4 @@ spec:
         name: ui
         ports:
         - containerPort: 3000
-        resources: {}
       restartPolicy: Always

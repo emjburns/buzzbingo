@@ -28,14 +28,15 @@ export class WordbanksComponent implements OnInit {
 
   ngOnInit(): void {
     this.getWordbanks();
-    // this.wordbankService.getWordbanks()
-    //   .then(wordbanks => this.wordbanks = wordbanks);
   }
 
   getWordbanks() {
     this.wordbankService.getWordbanks()
         .subscribe(
-          wordbanks => this.wordbanks = wordbanks,
+          wordbanks => {
+            this.wordbanks = wordbanks,
+            this.sortWordbanks()
+          },
           error => this.errorMessage = <any>error
         );
   }
@@ -45,7 +46,10 @@ export class WordbanksComponent implements OnInit {
     if (!name) { return; }
     this.wordbankService.create(name, wordArray)
        .subscribe(
-         wordbank  => this.wordbanks.push(wordbank),
+         wordbank  => {
+           this.wordbanks.push(wordbank),
+           this.sortWordbanks()
+         },
          error =>  this.errorMessage = <any>error
        );
   }
@@ -72,6 +76,20 @@ export class WordbanksComponent implements OnInit {
         wordbank  => this.wordbanks.push(wordbank),
         error =>  this.errorMessage = <any>error
       );
+  }
+
+  sortWordbanks(){
+    this.wordbanks.sort(
+      (w1,w2) => {
+          if (w1.name > w2.name){
+            return 1;
+          }
+          if (w1.name < w2.name){
+            return -1;
+          }
+          return 0;
+      }
+    )
   }
 
 }

@@ -1,21 +1,16 @@
 apiVersion: v1
 kind: Service
 metadata:
+  name: buzzbingo-api
   namespace: buzzbingo
-  creationTimestamp: null
   labels:
-    io.kompose.service: api
     app: buzzbingo
     stack: api
-  name: buzzbingo-api
-
 spec:
+  selector:
+    load-balancer-buzzbingo-api: "true"
+  type: LoadBalancer
   ports:
   - name: "api"
     port: 80
     targetPort: 8080
-  selector:
-    io.kompose.service: api
-  type: LoadBalancer
-status:
-  loadBalancer: {}

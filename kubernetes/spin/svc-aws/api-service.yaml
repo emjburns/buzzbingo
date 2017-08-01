@@ -1,23 +1,17 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: buzzbingo-api
-  namespace: buzzbingo
   annotations:
       service.beta.kubernetes.io/aws-load-balancer-internal: "0.0.0.0/0"
+  name: buzzbingo-api
+  namespace: buzzbingo
   labels:
-    io.kompose.service: api
     app: buzzbingo
     stack: api
-
 spec:
   selector:
-    io.kompose.service: api
-#    app: buzzbingo
-#    stack: api
+    load-balancer-buzzbingo-api: "true"
   type: LoadBalancer
   ports:
     - port: 80
       targetPort: 8080
-status:
-  loadBalancer: {}

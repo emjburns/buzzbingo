@@ -32,7 +32,11 @@ export class WordbankDetailComponent implements OnInit {
   ngOnInit(): void {
     this.route.params
       .switchMap((params: Params) => this.wordbankService.getWordbank(params['name']))
-      .subscribe(wordbank => this.wordbank = wordbank);
+      .subscribe(wordbank => {
+          this.wordbank = wordbank,
+          this.wordbank.words.sort()
+        }
+      );
   }
 
   deleteWord(name: string, word: string) {
