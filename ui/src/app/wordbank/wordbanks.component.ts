@@ -42,8 +42,15 @@ export class WordbanksComponent implements OnInit {
   }
 
   addWordbank(name: string, words: string) {
-    let wordArray = words.split(",")
     if (!name) { return; }
+    words = words.replace(/(\r\n|\n|\r)/gm,"");
+    let wordArray = words.split(",");
+
+    wordArray.forEach( (item,index) => {
+      item = item.trim();
+      wordArray[index] = item;
+    });
+
     this.wordbankService.create(name, wordArray)
        .subscribe(
          wordbank  => {

@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collection;
 import java.util.Map;
 import java.util.Set;
-import java.util.UUID;
 
 @RestController
 @CrossOrigin
@@ -37,19 +36,19 @@ public class WordbankController extends ApiBaseController {
   @Autowired
   RedisMessagePublisher redisMessagePublisher;
 
-  @RequestMapping(value = "/test", method = RequestMethod.GET)
-  public void testpubsub() {
-    LOGGER.info(">> sending message");
-    String message = "Message " + UUID.randomUUID();
-    LOGGER.info(">> message: " + message);
-    redisMessagePublisher.publish(message);
-    LOGGER.info(">> message sent");
+//  @RequestMapping(value = "/test", method = RequestMethod.GET)
+//  public void testpubsub() {
+//    LOGGER.info(">> sending message");
+//    String message = "Message " + UUID.randomUUID();
+//    LOGGER.info(">> message: " + message);
+//    redisMessagePublisher.publish(message);
+//    LOGGER.info(">> message sent");
 //
 //    boolean contains = RedisMessageSubscriber.messageList.get(0).contains(message);
 //    LOGGER.info(">> contains?");
 //    LOGGER.info(String.valueOf(contains));
-
-  }
+//
+//  }
 
 // -----------------------
 
