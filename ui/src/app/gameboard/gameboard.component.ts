@@ -53,7 +53,7 @@ export class GameboardComponent implements OnInit {
     this.gameboardService.toggle(this.gameboard.gameName, this.gameboard.playerName, index)
     .subscribe(
       gameboard => this.gameboard = gameboard,
-      error =>  this.alertService.error(error)
+      error =>  this.handleError(error)
     );
   }
 
@@ -65,9 +65,14 @@ export class GameboardComponent implements OnInit {
     );
   }
 
+  handleError(error){
+    if (error.indexOf("403") >= 0){
+      this.gameboard.gameover = true;
+    }
+  }
+
   //TODO: get game on init, have a clear winner name
   getGame() {
-    console.log("getting game");
     this.gameService.getGame(this.gameboard.gameName)
       .subscribe(
         game => this.game = game,
